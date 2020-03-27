@@ -10,7 +10,7 @@
 
 <#include "image-loader.js.ftl" />
 
-<script type="text/javascript">
+<script>
 /*<!CDATA[[*/
     (function() {
         var pdfPrinter = {};
