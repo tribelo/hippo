@@ -29,6 +29,9 @@
 <article class="article article--news">
     <@documentHeader document 'news' "" "" "" "" false metaData true></@documentHeader>
 
+    <#-- Restore the bundle -->
+    <@hst.setBundle basename="intranet.news" />
+
     <div class="grid-wrapper grid-wrapper--article">
         <div class="grid-row">
             <div class="column column--two-thirds page-block page-block--main">
@@ -60,6 +63,9 @@
                         <@sections document.sections />
                     </div>
                 </#if>
+
+                <#-- Restore the bundle -->
+                <@hst.setBundle basename="intranet.news" />
 
                 <#if hasRelatedDocuments>
                     <div class="article-section">
