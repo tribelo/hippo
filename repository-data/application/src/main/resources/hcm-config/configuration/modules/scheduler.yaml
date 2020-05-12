@@ -1,6 +1,54 @@
 ---
 definitions:
   config:
+    /hippo:configuration/hippo:modules/scheduler/hippo:moduleconfig/swagger:
+      /import-swagger:
+        /hipposched:triggers:
+          /frequency:
+            hipposched:cronExpression: 0 * * ? * *
+            hipposched:enabled: true
+            hipposched:nextFireTime: 2020-05-05T00:50:00Z
+            jcr:mixinTypes:
+            - hippo:lockable
+            - mix:lockable
+            jcr:primaryType: hipposched:crontrigger
+          jcr:primaryType: hipposched:triggers
+        hipposched:attributeNames:
+        - batchsize
+        - minutestolive
+        - excludepaths
+        - oaspath
+        - swaggerCodegenLibPath
+        - templatePath
+        - fileDestinationPath
+        - logFilesPath
+        - templateType
+        - apigeeSpecUrl
+        - oAuthTokenUrl
+        - oAuthTokenUsername
+        - oAuthTokenPassword
+        - basicToken
+        - otpKey
+        hipposched:attributeValues:
+        - '100'
+        - '120'
+        - /formdata/permanent/
+        - https://github.com/NHSDigital/personal-demographics-service-api/releases/download/v1.1.167-beta/patient-demographics-service-api.json
+        - /home/monika/nhs_ws/hippo
+        - /home/monika/nhs_ws/hippo/repository-data/webfiles/src/main/resources/swagger-templates/htmlDocsNHS
+        - /home/monika/nhs_ws/hippo/repository-data/webfiles/src/main/resources/site/swagger/output
+        - /home/monika/nhs_ws/hippo/logs
+        - htmlnhs
+        - https://apigee.com/dapi/api/organizations/nhsd-nonprod/specs/folder/home
+        - https://login.apigee.com/oauth/token
+        - apim.devzonenonprod@nhs.net
+        - xxx
+        - xxx
+        - xxx
+        hipposched:enabled: true
+        hipposched:repositoryJobClass: uk.nhs.digital.apispecs.jobs.ApiSpecConversionJob
+        jcr:primaryType: hipposched:repositoryjob
+      jcr:primaryType: hipposched:jobgroup
     /hippo:configuration/hippo:modules/scheduler/hippo:moduleconfig/system/FormDataCleanup:
       hipposched:attributeValues:
       - '100'
