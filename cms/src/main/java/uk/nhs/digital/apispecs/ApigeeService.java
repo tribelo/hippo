@@ -1,5 +1,6 @@
 package uk.nhs.digital.apispecs;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -14,6 +15,9 @@ import uk.nhs.digital.apispecs.dto.Content;
 import uk.nhs.digital.apispecs.dto.ContentsList;
 import uk.nhs.digital.apispecs.dto.Token;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Arrays;
 import java.util.List;
@@ -113,6 +117,19 @@ public class ApigeeService {
 
             LOGGER.error(ERR_MSG_OAUTH_FAIL_WITH_ERR_CODE, response.getStatusCode());
             throw new RuntimeException(ERR_CODE_OAUTH_FAIL + response.getStatusCode());
+        }
+    }
+
+    public String getSpecification(final String specificationId) {
+
+        // todo replace with actual HTTP call:
+        try {
+            return FileUtils.readFileToString(
+                Paths.get("/home/ziemsky/.config/JetBrains/IntelliJIdea2020.1/scratches/NHS_PDS_API_spec.json").toFile(),
+                "UTF-8"
+            );
+        } catch (final IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 }

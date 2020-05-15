@@ -5,6 +5,7 @@ import org.onehippo.repository.scheduling.RepositoryJobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
+import uk.nhs.digital.apispecs.ApiSpecHtmlProvider;
 import uk.nhs.digital.apispecs.ApiSpecPublicationService;
 import uk.nhs.digital.apispecs.ApiSpecRepository;
 import uk.nhs.digital.apispecs.ApigeeService;
@@ -12,6 +13,8 @@ import uk.nhs.digital.apispecs.config.ApigeeConfig;
 
 import java.time.Clock;
 import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import javax.jcr.SimpleCredentials;
 
 public class ApiSpecConversionJob implements RepositoryJob {
 
@@ -27,6 +30,8 @@ public class ApiSpecConversionJob implements RepositoryJob {
     @Override
     public void execute(RepositoryJobExecutionContext context) throws RepositoryException {
 
+        final Session session = context.createSession(new SimpleCredentials("admin", "admin".toCharArray()));
+
         String apigeeUrl = context.getAttribute(APIGEE_SPEC_URL);
         String tokenUrl = context.getAttribute(OAUTH_TOKEN_URL);
         String username = context.getAttribute(OAUTH_TOKEN_USERNAME);
@@ -35,15 +40,24 @@ public class ApiSpecConversionJob implements RepositoryJob {
         String otpKey = context.getAttribute(OTP_KEY);
 
         try {
-            RestTemplate restTemplate = new RestTemplate();
-            ApigeeConfig config = new ApigeeConfig(apigeeUrl,tokenUrl,username,password,basicToken,otpKey);
-            Clock clock = Clock.systemDefaultZone();
+            final RestTemplate restTemplate = new RestTemplate();
+            final ApigeeConfig config = new ApigeeConfig(apigeeUrl, tokenUrl, username, password, basicToken, otpKey);
+            final Clock clock = Clock.systemDefaultZone();
 
-            ApiSpecPublicationService apiSpecPublicationService = new ApiSpecPublicationService(new ApigeeService(restTemplate, config, clock), new ApiSpecRepository());
+            final ApigeeService apigeeService = new ApigeeService(restTemplate, config, clock);
+
+            final ApiSpecPublicationService apiSpecPublicationService = new ApiSpecPublicationService(
+                apigeeService,
+                new ApiSpecRepository(session),
+                new ApiSpecHtmlProvider(apigeeService)
+            );
+
             apiSpecPublicationService.publish();
 
         } catch (Exception ex) {
             LOGGER.error(ex.getLocalizedMessage());
+        } finally {
+            session.logout();
         }
     }
 }
