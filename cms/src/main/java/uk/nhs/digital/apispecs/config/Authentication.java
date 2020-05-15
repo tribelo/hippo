@@ -2,7 +2,7 @@ package uk.nhs.digital.apispecs.config;
 
 import org.apache.commons.codec.binary.Hex;
 
-import java.util.Date;
+import java.time.Clock;
 import java.util.concurrent.TimeUnit;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -40,11 +40,11 @@ public class Authentication {
         }
     }
 
-    public String googleAuthenticatorCode(String secret) throws Exception {
+    public String googleAuthenticatorCode(String secret, Clock clock) throws Exception {
         if (secret == null || secret == "") {
             throw new Exception("Secret key does not exist.");
         }
-        long value = new Date().getTime() / TimeUnit.SECONDS.toMillis(30);
+        long value = clock.millis() / TimeUnit.SECONDS.toMillis(30);
 
         Base32 base = new Base32(Base32.Alphabet.BASE32, false, true);
         byte[] key = base.fromString(secret);

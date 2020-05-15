@@ -1,18 +1,11 @@
-package uk.nhs.digital.apispecs;
+package uk.nhs.digital.apispecs.dto;
 
-public class SpecContent {
+public class Content {
 
     private String id;
     private String name;
     private String modified;
     private String self;
-
-    public SpecContent(String id, String name, String modified, String self) {
-        this.id = id;
-        this.name = name;
-        this.modified = modified;
-        this.self = self;
-    }
 
     public String getId() {
         return id;

@@ -2,6 +2,7 @@ package uk.nhs.digital.apispecs;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.nhs.digital.apispecs.dto.Content;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +21,17 @@ public class ApiSpecPublicationService {
 
     public void publish() {
 
-        List<SpecContent> contents = getApigeeSpecStatuses();   // apigee specs statuses
-        List<CmsSpec> cmsSpecs = findApiSpecifications();       // cms spec documents
+        List<Content> contents = getApigeeSpecStatuses();   // apigee specs statuses
+        List<CmsSpec> cmsSpecs = findApiSpecifications();   // cms spec documents
 
         LOGGER.info("============ content size =============  {}", contents.size());
 
-        List<SpecContent> specsToPublish = findSpecsToPublish(cmsSpecs,contents);
+        List<Content> specsToPublish = findSpecsToPublish(cmsSpecs,contents);
 
         publishSpecs(specsToPublish);
     }
 
-    private List<SpecContent> getApigeeSpecStatuses() {
+    private List<Content> getApigeeSpecStatuses() {
         return apigeeService.apigeeSpecsStatuses();
     }
 
@@ -38,13 +39,13 @@ public class ApiSpecPublicationService {
         return repository.apiSpecifications();
     }
 
-    private List<SpecContent> findSpecsToPublish(List<CmsSpec> cmsSpecs, List<SpecContent> apigeeSpecStatuses) {
+    private List<Content> findSpecsToPublish(List<CmsSpec> cmsSpecs, List<Content> apigeeSpecStatuses) {
         LOGGER.debug("cms specs size: [{}], apigee specs size: [{}]", cmsSpecs.size(), apigeeSpecStatuses.size());
         LOGGER.info("Compare cms specs and apigee specs to find out specs to publish...");
-        return new ArrayList<SpecContent>();
+        return new ArrayList<Content>();
     }
 
-    private void publishSpecs(List<SpecContent> specsToPublish) {
+    private void publishSpecs(List<Content> specsToPublish) {
         LOGGER.info("Publishing the SPEC for specification-id: [{}]", specsToPublish.size());
     }
 }

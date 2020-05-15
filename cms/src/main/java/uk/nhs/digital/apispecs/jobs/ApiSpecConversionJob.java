@@ -10,6 +10,7 @@ import uk.nhs.digital.apispecs.ApiSpecRepository;
 import uk.nhs.digital.apispecs.ApigeeService;
 import uk.nhs.digital.apispecs.config.ApigeeConfig;
 
+import java.time.Clock;
 import javax.jcr.RepositoryException;
 
 public class ApiSpecConversionJob implements RepositoryJob {
@@ -36,8 +37,9 @@ public class ApiSpecConversionJob implements RepositoryJob {
         try {
             RestTemplate restTemplate = new RestTemplate();
             ApigeeConfig config = new ApigeeConfig(apigeeUrl,tokenUrl,username,password,basicToken,otpKey);
+            Clock clock = Clock.systemDefaultZone();
 
-            ApiSpecPublicationService apiSpecPublicationService = new ApiSpecPublicationService(new ApigeeService(restTemplate,config), new ApiSpecRepository());
+            ApiSpecPublicationService apiSpecPublicationService = new ApiSpecPublicationService(new ApigeeService(restTemplate, config, clock), new ApiSpecRepository());
             apiSpecPublicationService.publish();
 
         } catch (Exception ex) {
