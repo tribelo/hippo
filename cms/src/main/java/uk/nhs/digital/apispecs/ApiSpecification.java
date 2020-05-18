@@ -25,4 +25,10 @@ public class ApiSpecification {
     public void saveAndPublish() {
         editable().saveAndPublish();
     }
+
+    @Override public String toString() {
+        return "ApiSpecification{" +
+            "documentLifecycleSupport=" + documentLifecycleSupport +
+            '}';
+    }
 }

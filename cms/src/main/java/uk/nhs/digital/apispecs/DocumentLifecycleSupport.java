@@ -8,6 +8,7 @@ import uk.nhs.digital.JcrNodeUtils;
 import javax.jcr.Node;
 import javax.jcr.Session;
 
+import static org.hippoecm.repository.util.JcrUtils.getNodePathQuietly;
 import static uk.nhs.digital.ExceptionUtils.wrapCheckedException;
 import static uk.nhs.digital.JcrNodeUtils.validateIsOfTypeHandle;
 
@@ -50,6 +51,12 @@ class DocumentLifecycleSupport {
         publish();
     }
 
+    @Override public String toString() {
+        return "DocumentLifecycleSupport{" +
+            "documentHandleNode=" + getNodePathQuietly(documentHandleNode) +
+            '}';
+    }
+
     private void save() {
         if (isDirty()) {
             try {
@@ -68,7 +75,7 @@ class DocumentLifecycleSupport {
         try {
             JcrDocumentUtils.publish(documentHandleNode);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to publish " + documentHandleNode, e);
+            throw new RuntimeException("Failed to publish " + getNodePathQuietly(documentHandleNode), e);
         }
     }
 
