@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.nhs.digital.apispecs.dto.Content;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ApiSpecPublicationService {
@@ -29,6 +28,9 @@ public class ApiSpecPublicationService {
         List<ApiSpecification> cmsSpecs = findApiSpecifications();   // cms spec documents
 
         LOGGER.info("============ content size =============  {}", apigeeSpecsStatuses.size());
+        LOGGER.info("===========================================================");
+        LOGGER.info(apigeeService.getSpecification("289897"));
+        LOGGER.info("===========================================================");
 
         List<ApiSpecification> specsToPublish = findSpecsToPublish(cmsSpecs,apigeeSpecsStatuses);
 
@@ -36,8 +38,7 @@ public class ApiSpecPublicationService {
     }
 
     private List<Content> getApigeeSpecStatuses() {
-        return Collections.emptyList();
-        // return apigeeService.apigeeSpecsStatuses();
+        return apigeeService.apigeeSpecsStatuses();
     }
 
     private List<ApiSpecification> findApiSpecifications() {

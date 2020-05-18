@@ -26,6 +26,7 @@ public class ApiSpecConversionJob implements RepositoryJob {
     private static final String OAUTH_TOKEN_PASSWORD = "oAuthTokenPassword";
     private static final String BASIC_TOKEN = "basicToken";
     private static final String OTP_KEY = "otpKey";
+    private static final String DOMAIN_NAME = "domainName";
 
     @Override
     public void execute(RepositoryJobExecutionContext context) throws RepositoryException {
@@ -38,10 +39,11 @@ public class ApiSpecConversionJob implements RepositoryJob {
         String password = context.getAttribute(OAUTH_TOKEN_PASSWORD);
         String basicToken = context.getAttribute(BASIC_TOKEN);
         String otpKey = context.getAttribute(OTP_KEY);
+        String domain = context.getAttribute(DOMAIN_NAME);
 
         try {
             final RestTemplate restTemplate = new RestTemplate();
-            final ApigeeConfig config = new ApigeeConfig(apigeeUrl, tokenUrl, username, password, basicToken, otpKey);
+            final ApigeeConfig config = new ApigeeConfig(apigeeUrl, tokenUrl, username, password, basicToken, otpKey, domain);
             final Clock clock = Clock.systemDefaultZone();
 
             final ApigeeService apigeeService = new ApigeeService(restTemplate, config, clock);

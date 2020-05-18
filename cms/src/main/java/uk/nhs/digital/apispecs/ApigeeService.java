@@ -1,6 +1,5 @@
 package uk.nhs.digital.apispecs;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -15,9 +14,6 @@ import uk.nhs.digital.apispecs.dto.Content;
 import uk.nhs.digital.apispecs.dto.ContentsList;
 import uk.nhs.digital.apispecs.dto.Token;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Arrays;
 import java.util.List;
@@ -93,6 +89,44 @@ public class ApigeeService {
         }
     }
 
+    public String getSpecification(final String specificationId) {
+
+        LOGGER.info("Calling Apigee endpoint to get specification for id : {}", specificationId);
+
+        try {
+            String url = config.getDomain() + "/organizations/nhsd-nonprod/specs/doc/" + specificationId + "/content";
+            String accessToken = getAccessToken();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set(AUTHORIZATION, BEARER + accessToken);
+
+            HttpEntity<?> request = new HttpEntity<>(headers);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
+
+            if (response.getStatusCode() == HttpStatus.OK) {
+
+                return response.getBody();
+            } else {
+                LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_CODE, response.getStatusCode());
+                throw new ApigeeServiceException(ERR_CODE_APIGEE_FAIL + response.getStatusCode(), response.getStatusCode());
+            }
+
+        } catch (HttpClientErrorException ex) {
+
+            LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getMessage());
+            throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getStatusCode());
+        } catch (HttpServerErrorException ex) {
+
+            LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getMessage());
+            throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG + ex.getMessage(), ex.getStatusCode());
+        } catch (Exception ex) {
+
+            LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getMessage());
+            throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL + ex.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
+        }
+    }
+
     private String getAccessToken() throws Exception {
 
         HttpHeaders headers = new HttpHeaders();
@@ -117,19 +151,6 @@ public class ApigeeService {
 
             LOGGER.error(ERR_MSG_OAUTH_FAIL_WITH_ERR_CODE, response.getStatusCode());
             throw new RuntimeException(ERR_CODE_OAUTH_FAIL + response.getStatusCode());
-        }
-    }
-
-    public String getSpecification(final String specificationId) {
-
-        // todo replace with actual HTTP call:
-        try {
-            return FileUtils.readFileToString(
-                Paths.get("/home/ziemsky/.config/JetBrains/IntelliJIdea2020.1/scratches/NHS_PDS_API_spec.json").toFile(),
-                "UTF-8"
-            );
-        } catch (final IOException e) {
-            throw new UncheckedIOException(e);
         }
     }
 }

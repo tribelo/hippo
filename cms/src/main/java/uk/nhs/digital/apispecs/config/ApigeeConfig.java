@@ -8,14 +8,16 @@ public class ApigeeConfig {
     private String password;
     private String basicToken;
     private String otpKey;
+    private String domain;
 
-    public ApigeeConfig(String specUrl, String tokenUrl, String username, String password, String basicToken, String otpKey) {
+    public ApigeeConfig(String specUrl, String tokenUrl, String username, String password, String basicToken, String otpKey, String domain) {
         this.specUrl = specUrl;
         this.tokenUrl = tokenUrl;
         this.username = username;
         this.password = password;
         this.basicToken = basicToken;
         this.otpKey = otpKey;
+        this.domain = domain;
     }
 
     public String getSpecUrl() {
@@ -40,5 +42,9 @@ public class ApigeeConfig {
 
     public String getOtpKey() {
         return otpKey;
+    }
+
+    public String getDomain() {
+        return domain;
     }
 }

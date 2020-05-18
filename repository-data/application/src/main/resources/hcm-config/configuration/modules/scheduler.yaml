@@ -25,6 +25,7 @@ definitions:
         - templateType
         - apigeeSpecUrl
         - oAuthTokenUrl
+        - domainName
         - oAuthTokenUsername
         - oAuthTokenPassword
         - basicToken
@@ -41,6 +42,7 @@ definitions:
         - htmlnhs
         - https://apigee.com/dapi/api/organizations/nhsd-nonprod/specs/folder/home
         - https://login.apigee.com/oauth/token
+        - https://apigee.com/dapi/api
         - apim.devzonenonprod@nhs.net
         - xxx
         - xxx
