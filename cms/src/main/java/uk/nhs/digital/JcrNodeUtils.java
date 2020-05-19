@@ -2,6 +2,7 @@ package uk.nhs.digital;
 
 
 import org.apache.commons.lang3.Validate;
+import org.hippoecm.repository.util.JcrUtils;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -30,6 +31,10 @@ public abstract class JcrNodeUtils {
 
     public static Session getSessionQuietly(final Node node) {
         return wrapCheckedException(node::getSession);
+    }
+
+    public static String getStringPropertyQuietly(final Node node, final String propertyName) {
+        return wrapCheckedException(() -> JcrUtils.getStringProperty(node, propertyName, ""));
     }
 
     public static void validateIsOfTypeHandle(final Node documentHandleCandidateNode) {

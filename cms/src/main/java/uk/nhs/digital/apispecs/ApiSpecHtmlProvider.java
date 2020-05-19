@@ -117,7 +117,7 @@ public class ApiSpecHtmlProvider {
 
     private File getOpenApiSpecFor(final ApiSpecification apiSpecification) {
 
-        final String openApiSpecJson = apigeeService.getSpecification("260693");
+        final String openApiSpecJson = apigeeService.getSpecification(apiSpecification.getId());
 
         final File tempFile;
         try {

@@ -3,6 +3,7 @@ package uk.nhs.digital.apispecs;
 public class ApiSpecification {
 
     private static final String PROPERTY_NAME_HTML = "website:html";
+    private static final String PROPERTY_NAME_SPECIFICATION_ID = "website:specification_id";
 
     private DocumentLifecycleSupport documentLifecycleSupport;
 
@@ -15,20 +16,24 @@ public class ApiSpecification {
     }
 
     public void setHtml(final String html) {
-        editable().setProperty(PROPERTY_NAME_HTML, html);
+        jcrDocument().setProperty(PROPERTY_NAME_HTML, html);
     }
 
-    private DocumentLifecycleSupport editable() {
+    private DocumentLifecycleSupport jcrDocument() {
         return documentLifecycleSupport;
     }
 
     public void saveAndPublish() {
-        editable().saveAndPublish();
+        jcrDocument().saveAndPublish();
     }
 
     @Override public String toString() {
         return "ApiSpecification{" +
             "documentLifecycleSupport=" + documentLifecycleSupport +
             '}';
+    }
+
+    public String getId() {
+        return jcrDocument().getStringProperty(PROPERTY_NAME_SPECIFICATION_ID);
     }
 }

@@ -32,9 +32,6 @@ public class ApiSpecPublicationService {
         List<ApiSpecification> cmsSpecs = findApiSpecifications();   // cms spec documents
 
         LOGGER.info("============ content size =============  {}", apigeeSpecsStatuses.size());
-        LOGGER.info("===========================================================");
-        LOGGER.info(apigeeService.getSpecification("289897"));
-        LOGGER.info("===========================================================");
 
         List<ApiSpecification> specsToPublish = findSpecsToPublish(cmsSpecs,apigeeSpecsStatuses);
 

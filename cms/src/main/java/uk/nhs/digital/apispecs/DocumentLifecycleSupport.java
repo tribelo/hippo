@@ -10,6 +10,7 @@ import javax.jcr.Session;
 
 import static org.hippoecm.repository.util.JcrUtils.getNodePathQuietly;
 import static uk.nhs.digital.ExceptionUtils.wrapCheckedException;
+import static uk.nhs.digital.JcrDocumentUtils.getDocumentVariantNodeDraft;
 import static uk.nhs.digital.JcrNodeUtils.validateIsOfTypeHandle;
 
 class DocumentLifecycleSupport {
@@ -49,6 +50,13 @@ class DocumentLifecycleSupport {
     public void saveAndPublish() {
         save();
         publish();
+    }
+
+    public String getStringProperty(final String propertyName) {
+
+        final Node documentVariantNodeDraft = getDocumentVariantNodeDraft(documentHandleNode);
+
+        return JcrNodeUtils.getStringPropertyQuietly(documentVariantNodeDraft, propertyName);
     }
 
     @Override public String toString() {
