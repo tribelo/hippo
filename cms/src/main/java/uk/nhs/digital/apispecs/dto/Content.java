@@ -7,6 +7,10 @@ public class Content {
     private String modified;
     private String self;
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
