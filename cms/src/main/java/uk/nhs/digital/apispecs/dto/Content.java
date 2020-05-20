@@ -1,10 +1,12 @@
 package uk.nhs.digital.apispecs.dto;
 
+import java.time.Instant;
+
 public class Content {
 
     private String id;
     private String name;
-    private String modified;
+    private Instant modified;
     private String self;
 
     public void setId(String id) {
@@ -19,7 +21,7 @@ public class Content {
         return name;
     }
 
-    public String getModified() {
+    public Instant getModified() {
         return modified;
     }
 

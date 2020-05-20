@@ -1,9 +1,12 @@
 package uk.nhs.digital.apispecs;
 
-public class ApiSpecification {
+import java.time.Instant;
+import java.util.Optional;
 
-    private static final String PROPERTY_NAME_HTML = "website:html";
-    private static final String PROPERTY_NAME_SPECIFICATION_ID = "website:specification_id";
+import static org.hippoecm.repository.util.WorkflowUtils.Variant.DRAFT;
+import static uk.nhs.digital.apispecs.ApiSpecification.ApiSpecPropertyNames.*;
+
+public class ApiSpecification {
 
     private DocumentLifecycleSupport documentLifecycleSupport;
 
@@ -15,12 +18,14 @@ public class ApiSpecification {
         return new ApiSpecification(documentLifecycleSupport);
     }
 
-    public void setHtml(final String html) {
-        jcrDocument().setProperty(PROPERTY_NAME_HTML, html);
+    public String getId() {
+        return jcrDocument().getStringProperty(SPECIFICATION_ID.propName(), DRAFT)
+            .orElseThrow(() -> new RuntimeException("Specification id not available"))
+            ;
     }
 
-    private DocumentLifecycleSupport jcrDocument() {
-        return documentLifecycleSupport;
+    public void setHtml(final String html) {
+        jcrDocument().setProperty(HTML.propName(), html);
     }
 
     public void saveAndPublish() {
@@ -33,7 +38,27 @@ public class ApiSpecification {
             '}';
     }
 
-    public String getId() {
-        return jcrDocument().getStringProperty(PROPERTY_NAME_SPECIFICATION_ID);
+    public Optional<Instant> getLastPublicationInstant() {
+        return jcrDocument().getLastPublicationInstant(PUBLICATION_DATE.propName());
+    }
+
+    private DocumentLifecycleSupport jcrDocument() {
+        return documentLifecycleSupport;
+    }
+
+    enum ApiSpecPropertyNames {
+        HTML("website:html"),
+        SPECIFICATION_ID("website:specification_id"),
+        PUBLICATION_DATE("hippostdpubwf:publicationDate");
+
+        private final String propName;
+
+        ApiSpecPropertyNames(final String propName) {
+            this.propName = propName;
+        }
+
+        public String propName() {
+            return propName;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package uk.nhs.digital.apispecs;
 
 import org.hippoecm.repository.api.Document;
+import org.hippoecm.repository.util.WorkflowUtils;
 import org.onehippo.forge.content.exim.core.DocumentManager;
 import uk.nhs.digital.JcrDocumentUtils;
 import uk.nhs.digital.JcrNodeUtils;
@@ -8,9 +9,12 @@ import uk.nhs.digital.JcrNodeUtils;
 import javax.jcr.Node;
 import javax.jcr.Session;
 
+import java.time.Instant;
+import java.util.Optional;
+
 import static org.hippoecm.repository.util.JcrUtils.getNodePathQuietly;
+import static org.hippoecm.repository.util.WorkflowUtils.Variant.PUBLISHED;
 import static uk.nhs.digital.ExceptionUtils.wrapCheckedException;
-import static uk.nhs.digital.JcrDocumentUtils.getDocumentVariantNodeDraft;
 import static uk.nhs.digital.JcrNodeUtils.validateIsOfTypeHandle;
 
 class DocumentLifecycleSupport {
@@ -35,6 +39,9 @@ class DocumentLifecycleSupport {
         return new DocumentLifecycleSupport(documentHandleNode);
     }
 
+    /**
+     * Sets property on 'draft' node.
+     */
     public void setProperty(final String propertyName, final String value) {
         try {
             ensureInitialisedForEditing();
@@ -47,16 +54,25 @@ class DocumentLifecycleSupport {
         }
     }
 
+    public Optional<String> getStringProperty(final String propertyName,
+                                              final WorkflowUtils.Variant documentVariantType
+    ) {
+        return WorkflowUtils.getDocumentVariantNode(documentHandleNode, documentVariantType)
+            .flatMap(node -> JcrNodeUtils.getStringProperty(node, propertyName));
+    }
+
+    /**
+     * @return Date of last publication or {@linkplain Optional#empty()} if the document has not been published, yet.
+     */
+    public Optional<Instant> getLastPublicationInstant(final String propertyName) {
+
+        return WorkflowUtils.getDocumentVariantNode(documentHandleNode, PUBLISHED)
+            .flatMap(node -> JcrNodeUtils.getInstantProperty(node, propertyName));
+    }
+
     public void saveAndPublish() {
         save();
         publish();
-    }
-
-    public String getStringProperty(final String propertyName) {
-
-        final Node documentVariantNodeDraft = getDocumentVariantNodeDraft(documentHandleNode);
-
-        return JcrNodeUtils.getStringPropertyQuietly(documentVariantNodeDraft, propertyName);
     }
 
     @Override public String toString() {
@@ -116,4 +132,6 @@ class DocumentLifecycleSupport {
     private void setDirty(final boolean isDirty) {
         this.isDirty = isDirty;
     }
+
+
 }

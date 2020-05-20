@@ -78,11 +78,6 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
 
-<!--        Swagger CodeGen-->
-<!--        <dependency>-->
-<!--            <groupId>io.swagger.codegen.v3</groupId>-->
-<!--            <artifactId>swagger-codegen</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>io.swagger.codegen.v3</groupId>
             <artifactId>swagger-codegen-generators</artifactId>

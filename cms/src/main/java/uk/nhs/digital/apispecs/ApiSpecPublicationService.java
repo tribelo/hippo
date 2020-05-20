@@ -1,12 +1,17 @@
 package uk.nhs.digital.apispecs;
 
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.nhs.digital.apispecs.dto.Content;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
 
 import static java.lang.String.format;
+import static java.util.stream.Collectors.toList;
 import static uk.nhs.digital.apispecs.ApiSpecPublicationService.PublicationResult.FAIL;
 import static uk.nhs.digital.apispecs.ApiSpecPublicationService.PublicationResult.PASS;
 
@@ -28,12 +33,19 @@ public class ApiSpecPublicationService {
 
     public void publish() {
 
-        List<Content> apigeeSpecsStatuses = getApigeeSpecStatuses();   // apigee specs statuses
-        List<ApiSpecification> cmsSpecs = findApiSpecifications();   // cms spec documents
+        final List<Content> apigeeSpecsStatuses = getApigeeSpecStatuses();
 
-        LOGGER.info("============ content size =============  {}", apigeeSpecsStatuses.size());
+        final List<ApiSpecification> cmsApiSpecifications = findCmsApiSpecifications();
 
-        List<ApiSpecification> specsToPublish = findSpecsToPublish(cmsSpecs,apigeeSpecsStatuses);
+        final List<ApiSpecification> specsToPublish = identifySpecsEligibleForPublication(
+            cmsApiSpecifications,
+            apigeeSpecsStatuses
+        );
+
+        LOGGER.info("Specifications found: in CMS: {}, in Apigee: {}, updated in Apigee and eligible to publish in CMS: {}",
+            cmsApiSpecifications.size(),
+            apigeeSpecsStatuses.size(),
+            specsToPublish.size());
 
         publish(specsToPublish);
     }
@@ -42,22 +54,37 @@ public class ApiSpecPublicationService {
         return apigeeService.apigeeSpecsStatuses();
     }
 
-    private List<ApiSpecification> findApiSpecifications() {
+    private List<ApiSpecification> findCmsApiSpecifications() {
         return repository.findAllApiSpecifications();
     }
 
-    private List<ApiSpecification> findSpecsToPublish(List<ApiSpecification> cmsSpecs, List<Content> apigeeSpecStatuses) {
-        LOGGER.debug("cms specs size: [{}], apigee specs size: [{}]", cmsSpecs.size(), apigeeSpecStatuses.size());
-        LOGGER.info("Compare cms specs and apigee specs to find out specs to publish...");
-        return cmsSpecs;
+    private List<ApiSpecification> identifySpecsEligibleForPublication(
+        final List<ApiSpecification> cmsSpecs,
+        final List<Content> apigeeSpecStatuses
+    ) {
+        final Map<String, Content> apigeeSpecsById = Maps.uniqueIndex(apigeeSpecStatuses, Content::getId);
+
+        return cmsSpecs.stream()
+            .filter(specificationsPresentInBothSystems(apigeeSpecsById))
+            .filter(specificationsChangedInApigeeAfterPublishedInCms(apigeeSpecsById))
+            .collect(toList());
+    }
+
+    private Predicate<ApiSpecification> specificationsChangedInApigeeAfterPublishedInCms(
+        final Map<String, Content> apigeeSpecsById) {
+        return apiSpecification -> apigeeSpecsById.get(apiSpecification.getId()).getModified().isAfter(apiSpecification.getLastPublicationInstant().orElse(Instant.EPOCH));
+    }
+
+    private Predicate<ApiSpecification> specificationsPresentInBothSystems(
+        final Map<String, Content> apigeeSpecsById) {
+        return apiSpecification -> apigeeSpecsById.containsKey(apiSpecification.getId());
     }
 
     private void publish(List<ApiSpecification> specsToPublish) {
-        LOGGER.info("Publishing the SPEC for specification-id: [{}]", specsToPublish.size());
 
         final long failedSpecificationsCount = specsToPublish.stream()
             .map(this::publish)
-            .filter(publicationResult -> publicationResult.equals(FAIL))
+            .filter(PublicationResult::failed)
             .count();
 
         reportErrorIfAnySpecificationsFailed(failedSpecificationsCount, specsToPublish.size());
@@ -75,19 +102,24 @@ public class ApiSpecPublicationService {
         }
     }
 
-    private PublicationResult publish(final ApiSpecification apiSpecification) {
+    private PublicationResult publish(final ApiSpecification apiSpecificationToPublish) {
 
         try {
-            final String specHtml = getHtmlForSpec(apiSpecification);
+            LOGGER.info("Publishing API specification: {}", apiSpecificationToPublish);
 
-            apiSpecification.setHtml(specHtml);
+            final String specHtml = getHtmlForSpec(apiSpecificationToPublish);
 
-            apiSpecification.saveAndPublish();
+            apiSpecificationToPublish.setHtml(specHtml);
+
+            apiSpecificationToPublish.saveAndPublish();
+
+            LOGGER.info("API specification has been published: {}", apiSpecificationToPublish.getId());
 
             return PASS;
 
         } catch (final Exception e) {
-            LOGGER.error("Failed to publish specification " + apiSpecification, e);
+            LOGGER.error("Failed to publish specification: " + apiSpecificationToPublish, e);
+
             return FAIL;
         }
     }
@@ -98,6 +130,14 @@ public class ApiSpecPublicationService {
 
     enum PublicationResult {
         PASS,
-        FAIL
+        FAIL;
+
+        public boolean failed() {
+            return this == FAIL;
+        }
+
+        public boolean passed() {
+            return this == PASS;
+        }
     }
 }

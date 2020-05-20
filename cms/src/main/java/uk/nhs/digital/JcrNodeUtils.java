@@ -7,6 +7,8 @@ import org.hippoecm.repository.util.JcrUtils;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.Session;
+import java.time.Instant;
+import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
@@ -33,8 +35,17 @@ public abstract class JcrNodeUtils {
         return wrapCheckedException(node::getSession);
     }
 
-    public static String getStringPropertyQuietly(final Node node, final String propertyName) {
-        return wrapCheckedException(() -> JcrUtils.getStringProperty(node, propertyName, ""));
+    public static Optional<String> getStringProperty(final Node node, final String propertyName) {
+        return Optional.ofNullable(
+            wrapCheckedException(() -> JcrUtils.getStringProperty(node, propertyName, null))
+        );
+    }
+
+    public static Optional<Instant> getInstantProperty(final Node node, final String propertyName) {
+        return Optional.ofNullable(
+            wrapCheckedException(() -> JcrUtils.getStringProperty(node, propertyName, null))
+        )
+        .map(Instant::parse);
     }
 
     public static void validateIsOfTypeHandle(final Node documentHandleCandidateNode) {

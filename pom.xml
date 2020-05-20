@@ -285,17 +285,11 @@
                 <version>3.9</version>
             </dependency>
 
-<!--            <dependency>-->
-<!--                <groupId>io.swagger.codegen.v3</groupId>-->
-<!--                <artifactId>swagger-codegen</artifactId>-->
-<!--                <version>3.0.19</version>-->
-<!--            </dependency>-->
             <dependency>
                 <groupId>io.swagger.codegen.v3</groupId>
                 <artifactId>swagger-codegen-generators</artifactId>
                 <version>1.0.19</version>
             </dependency>
-
 
             <dependency>
                 <groupId>org.apache.sling</groupId>
