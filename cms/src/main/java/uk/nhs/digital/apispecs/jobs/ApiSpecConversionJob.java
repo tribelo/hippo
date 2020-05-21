@@ -22,11 +22,11 @@ public class ApiSpecConversionJob implements RepositoryJob {
 
     private static final String APIGEE_SPEC_URL = "apigeeSpecUrl";
     private static final String OAUTH_TOKEN_URL = "oAuthTokenUrl";
-    private static final String OAUTH_TOKEN_USERNAME = "oAuthTokenUsername";
-    private static final String OAUTH_TOKEN_PASSWORD = "oAuthTokenPassword";
-    private static final String BASIC_TOKEN = "basicToken";
-    private static final String OTP_KEY = "otpKey";
     private static final String DOMAIN_NAME = "domainName";
+    private static final String OAUTH_TOKEN_USERNAME = "devzone.apigee.username";
+    private static final String OAUTH_TOKEN_PASSWORD = "devzone.apigee.password";
+    private static final String BASIC_TOKEN = "devzone.apigee.basicauthtoken";
+    private static final String OTP_KEY = "devzone.apigee.otpkey";
 
     @Override
     public void execute(RepositoryJobExecutionContext context) throws RepositoryException {
@@ -35,11 +35,12 @@ public class ApiSpecConversionJob implements RepositoryJob {
 
         String apigeeUrl = context.getAttribute(APIGEE_SPEC_URL);
         String tokenUrl = context.getAttribute(OAUTH_TOKEN_URL);
-        String username = context.getAttribute(OAUTH_TOKEN_USERNAME);
-        String password = context.getAttribute(OAUTH_TOKEN_PASSWORD);
-        String basicToken = context.getAttribute(BASIC_TOKEN);
-        String otpKey = context.getAttribute(OTP_KEY);
         String domain = context.getAttribute(DOMAIN_NAME);
+
+        String username = System.getProperty(OAUTH_TOKEN_USERNAME);
+        String password = System.getProperty(OAUTH_TOKEN_PASSWORD);
+        String basicToken = System.getProperty(BASIC_TOKEN);
+        String otpKey = System.getProperty(OTP_KEY);
 
         try {
             final RestTemplate restTemplate = new RestTemplate();

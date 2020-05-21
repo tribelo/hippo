@@ -26,10 +26,6 @@ definitions:
         - apigeeSpecUrl
         - oAuthTokenUrl
         - domainName
-        - oAuthTokenUsername
-        - oAuthTokenPassword
-        - basicToken
-        - otpKey
         hipposched:attributeValues:
         - '100'
         - '120'
@@ -43,10 +39,6 @@ definitions:
         - https://apigee.com/dapi/api/organizations/nhsd-nonprod/specs/folder/home
         - https://login.apigee.com/oauth/token
         - https://apigee.com/dapi/api
-        - apim.devzonenonprod@nhs.net
-        - xxx
-        - xxx
-        - xxx
         hipposched:enabled: true
         hipposched:repositoryJobClass: uk.nhs.digital.apispecs.jobs.ApiSpecConversionJob
         jcr:primaryType: hipposched:repositoryjob
