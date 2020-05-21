@@ -19,13 +19,13 @@ public class ApiSpecification {
     }
 
     public String getId() {
-        return jcrDocument().getStringProperty(SPECIFICATION_ID.propName(), DRAFT)
+        return jcrDocument().getStringProperty(SPECIFICATION_ID.value(), DRAFT)
             .orElseThrow(() -> new RuntimeException("Specification id not available"))
             ;
     }
 
     public void setHtml(final String html) {
-        jcrDocument().setProperty(HTML.propName(), html);
+        jcrDocument().setProperty(HTML.value(), html);
     }
 
     public void saveAndPublish() {
@@ -39,7 +39,7 @@ public class ApiSpecification {
     }
 
     public Optional<Instant> getLastPublicationInstant() {
-        return jcrDocument().getLastPublicationInstant(PUBLICATION_DATE.propName());
+        return jcrDocument().getLastPublicationInstant();
     }
 
     private DocumentLifecycleSupport jcrDocument() {
@@ -48,17 +48,16 @@ public class ApiSpecification {
 
     enum ApiSpecPropertyNames {
         HTML("website:html"),
-        SPECIFICATION_ID("website:specification_id"),
-        PUBLICATION_DATE("hippostdpubwf:publicationDate");
+        SPECIFICATION_ID("website:specification_id");
 
-        private final String propName;
+        private final String value;
 
-        ApiSpecPropertyNames(final String propName) {
-            this.propName = propName;
+        ApiSpecPropertyNames(final String value) {
+            this.value = value;
         }
 
-        public String propName() {
-            return propName;
+        public String value() {
+            return value;
         }
     }
 }

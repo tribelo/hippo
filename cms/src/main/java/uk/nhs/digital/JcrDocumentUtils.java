@@ -33,7 +33,7 @@ public abstract class JcrDocumentUtils {
         }
     }
 
-    public static void save(final Session session) {
+    public static void saveQuietly(final Session session) {
         wrapCheckedException(session::save);
     }
 

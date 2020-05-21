@@ -27,21 +27,21 @@ public abstract class JcrNodeUtils {
         );
     }
 
-    public static void setPropertyQuietly(final Node node, final String propertyName, final String value) {
-        wrapCheckedException(() -> node.setProperty(propertyName, value));
-    }
-
     public static Session getSessionQuietly(final Node node) {
         return wrapCheckedException(node::getSession);
     }
 
-    public static Optional<String> getStringProperty(final Node node, final String propertyName) {
+    public static Optional<String> getStringPropertyQuietly(final Node node, final String propertyName) {
         return Optional.ofNullable(
             wrapCheckedException(() -> JcrUtils.getStringProperty(node, propertyName, null))
         );
     }
 
-    public static Optional<Instant> getInstantProperty(final Node node, final String propertyName) {
+    public static void setStringPropertyQuietly(final Node node, final String propertyName, final String value) {
+        wrapCheckedException(() -> node.setProperty(propertyName, value));
+    }
+
+    public static Optional<Instant> getInstantPropertyQuietly(final Node node, final String propertyName) {
         return Optional.ofNullable(
             wrapCheckedException(() -> JcrUtils.getStringProperty(node, propertyName, null))
         )

@@ -16,6 +16,7 @@ import static org.hippoecm.repository.util.JcrUtils.getNodePathQuietly;
 import static org.hippoecm.repository.util.WorkflowUtils.Variant.PUBLISHED;
 import static uk.nhs.digital.ExceptionUtils.wrapCheckedException;
 import static uk.nhs.digital.JcrNodeUtils.validateIsOfTypeHandle;
+import static uk.nhs.digital.apispecs.DocumentLifecycleSupport.StandardPropertyNames.PUBLICATION_DATE;
 
 class DocumentLifecycleSupport {
 
@@ -46,7 +47,7 @@ class DocumentLifecycleSupport {
         try {
             ensureInitialisedForEditing();
 
-            JcrNodeUtils.setPropertyQuietly(draftNodeCheckedOut, propertyName, value);
+            JcrNodeUtils.setStringPropertyQuietly(draftNodeCheckedOut, propertyName, value);
 
             setDirty(true);
         } catch (final Exception e) {
@@ -58,16 +59,16 @@ class DocumentLifecycleSupport {
                                               final WorkflowUtils.Variant documentVariantType
     ) {
         return WorkflowUtils.getDocumentVariantNode(documentHandleNode, documentVariantType)
-            .flatMap(node -> JcrNodeUtils.getStringProperty(node, propertyName));
+            .flatMap(node -> JcrNodeUtils.getStringPropertyQuietly(node, propertyName));
     }
 
     /**
      * @return Date of last publication or {@linkplain Optional#empty()} if the document has not been published, yet.
      */
-    public Optional<Instant> getLastPublicationInstant(final String propertyName) {
+    public Optional<Instant> getLastPublicationInstant() {
 
         return WorkflowUtils.getDocumentVariantNode(documentHandleNode, PUBLISHED)
-            .flatMap(node -> JcrNodeUtils.getInstantProperty(node, propertyName));
+            .flatMap(node -> JcrNodeUtils.getInstantPropertyQuietly(node, PUBLICATION_DATE.value()));
     }
 
     public void saveAndPublish() {
@@ -84,7 +85,7 @@ class DocumentLifecycleSupport {
     private void save() {
         if (isDirty()) {
             try {
-                JcrDocumentUtils.save(getSession());
+                JcrDocumentUtils.saveQuietly(getSession());
 
                 documentManager.commitEditableDocument(draftDocumentVariant);
 
@@ -133,5 +134,17 @@ class DocumentLifecycleSupport {
         this.isDirty = isDirty;
     }
 
+    enum StandardPropertyNames {
+        PUBLICATION_DATE("hippostdpubwf:publicationDate");
 
+        private final String value;
+
+        StandardPropertyNames(final String value) {
+            this.value = value;
+        }
+
+        public String value() {
+            return value;
+        }
+    }
 }

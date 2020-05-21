@@ -5,7 +5,7 @@ import org.onehippo.repository.scheduling.RepositoryJobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
-import uk.nhs.digital.apispecs.ApiSpecHtmlProvider;
+import uk.nhs.digital.apispecs.SwaggerCodeGenApiSpecHtmlProvider;
 import uk.nhs.digital.apispecs.ApiSpecPublicationService;
 import uk.nhs.digital.apispecs.ApiSpecRepository;
 import uk.nhs.digital.apispecs.ApigeeService;
@@ -14,7 +14,6 @@ import uk.nhs.digital.apispecs.config.ApigeeConfig;
 import java.time.Clock;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.SimpleCredentials;
 
 public class ApiSpecConversionJob implements RepositoryJob {
 
@@ -31,7 +30,7 @@ public class ApiSpecConversionJob implements RepositoryJob {
     @Override
     public void execute(RepositoryJobExecutionContext context) throws RepositoryException {
 
-        final Session session = context.createSession(new SimpleCredentials("admin", "admin".toCharArray()));
+        final Session session = context.createSystemSession();
 
         String apigeeAllSpecUrl = System.getProperty(APIGEE_ALL_SPEC_URL);
         String apigeeSingleSpecUrl = System.getProperty(APIGEE_SINGLE_SPEC_URL);
@@ -51,7 +50,7 @@ public class ApiSpecConversionJob implements RepositoryJob {
             final ApiSpecPublicationService apiSpecPublicationService = new ApiSpecPublicationService(
                 apigeeService,
                 new ApiSpecRepository(session),
-                new ApiSpecHtmlProvider(apigeeService)
+                new SwaggerCodeGenApiSpecHtmlProvider(apigeeService)
             );
 
             apiSpecPublicationService.publish();

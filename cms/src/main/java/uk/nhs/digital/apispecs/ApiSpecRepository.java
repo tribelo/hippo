@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.NodeIterator;
 import javax.jcr.Session;
 import javax.jcr.query.Query;
+import javax.jcr.query.QueryResult;
 import java.util.List;
 
 import static java.lang.String.format;
@@ -37,9 +38,9 @@ public class ApiSpecRepository {
         try {
             log.info("Looking for Api Specifications...");
 
-            final NodeIterator cmsSpecsHandleNodesIterator = findApiSpecificationsHandleNodes();
+            final QueryResult cmsSpecsHandleNodes = findApiSpecificationsHandleNodes();
 
-            final List<ApiSpecification> apiSpecifications = createApiSpecificationsFrom(cmsSpecsHandleNodesIterator);
+            final List<ApiSpecification> apiSpecifications = createApiSpecificationsFrom(cmsSpecsHandleNodes.getNodes());
 
             log.info("Found {} Api Specifications.", apiSpecifications.size());
 
@@ -58,19 +59,18 @@ public class ApiSpecRepository {
             .collect(toList());
     }
 
-    private NodeIterator findApiSpecificationsHandleNodes() {
+    private QueryResult findApiSpecificationsHandleNodes() {
 
-        return executeJcrXpathQueryForNodesIterator(QUERY_STATEMENT);
+        return executeJcrXpathQueryForQueryResult(QUERY_STATEMENT);
     }
 
-    private NodeIterator executeJcrXpathQueryForNodesIterator(final String queryStatement) {
+    private QueryResult executeJcrXpathQueryForQueryResult(final String queryStatement) {
         try {
             return session
                 .getWorkspace()
                 .getQueryManager()
                 .createQuery(queryStatement, Query.XPATH)
-                .execute()
-                .getNodes();
+                .execute();
 
         } catch (final Exception e) {
             throw new RuntimeException(format("Failed to execute query %s.", queryStatement), e);
