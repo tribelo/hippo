@@ -20,13 +20,13 @@ public class ApiSpecConversionJob implements RepositoryJob {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApiSpecConversionJob.class);
 
-    private static final String APIGEE_ALL_SPEC_URL = "devzone.apigee.url.specs.all";
-    private static final String OAUTH_TOKEN_URL = "devzone.apigee.url.oauth.token";
-    private static final String APIGEE_SINGLE_SPEC_URL = "devzone.apigee.url.specs.individual";
-    private static final String OAUTH_TOKEN_USERNAME = "devzone.apigee.username";
-    private static final String OAUTH_TOKEN_PASSWORD = "devzone.apigee.password";
-    private static final String BASIC_TOKEN = "devzone.apigee.basicauthtoken";
-    private static final String OTP_KEY = "devzone.apigee.otpkey";
+    private static final String APIGEE_ALL_SPEC_URL = "devzone.apigee.resources.specs.all.url";
+    private static final String APIGEE_SINGLE_SPEC_URL = "devzone.apigee.resources.specs.individual.url";
+    private static final String OAUTH_TOKEN_URL = "devzone.apigee.oauth.token.url";
+    private static final String OAUTH_TOKEN_USERNAME = "devzone.apigee.oauth.username";
+    private static final String OAUTH_TOKEN_PASSWORD = "devzone.apigee.oauth.password";
+    private static final String BASIC_TOKEN = "devzone.apigee.oauth.basicauthtoken";
+    private static final String OTP_KEY = "devzone.apigee.oauth.otpkey";
 
     @Override
     public void execute(RepositoryJobExecutionContext context) throws RepositoryException {

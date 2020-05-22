@@ -13,6 +13,10 @@ public class Content {
         this.id = id;
     }
 
+    public void setModified(Instant modified) {
+        this.modified = modified;
+    }
+
     public String getId() {
         return id;
     }

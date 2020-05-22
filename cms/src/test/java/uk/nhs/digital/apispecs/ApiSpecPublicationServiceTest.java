@@ -9,14 +9,13 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import uk.nhs.digital.apispecs.dto.Content;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ApiSpecPublicationServiceTest {
@@ -33,48 +32,74 @@ public class ApiSpecPublicationServiceTest {
     @Mock
     private ApiSpecHtmlProvider htmlProvider;
 
-    @Mock
-    private ApiSpecification spec;
-
-    List<Content> contentList;
-    List<ApiSpecification> apiSpecifications;
-    String html;
-
     @Before
     public void init() throws Exception {
 
         MockitoAnnotations.initMocks(this);
-
-        Content content = new Content();
-        content.setId("248569");
-        contentList = new ArrayList<Content>();
-        contentList.add(content);
-
-        apiSpecifications = new ArrayList<ApiSpecification>();
-        apiSpecifications.add(spec);
-
-        html = "<html><body> Some content </body></html>";
     }
 
     @Test
-    public void publishes() {
+    public void publish_publishesSpecifications_thatChangedInApigeeAfterTheyWerePublishedInCms() {
 
         // Mock html provider call
-        lenient().when(htmlProvider.getHtmlForSpec(any())).thenReturn(html);
+        String s2html = "<html><body> Some content spec2 </body></html>";
+        lenient().when(htmlProvider.getHtmlForSpec(any())).thenReturn(s2html);
 
         // Mock repository call
-        when(repository.findAllApiSpecifications()).thenReturn(apiSpecifications);
+        List<ApiSpecification> specs = getApiSpecificationsList("248456",Optional.ofNullable(Instant.parse("2020-05-20T08:30:00.000Z")));
+        when(repository.findAllApiSpecifications()).thenReturn(specs);
 
         // Mock apigee service call
-        when(apigeeService.apigeeSpecsStatuses()).thenReturn(contentList);
+        when(apigeeService.apigeeSpecsStatuses()).thenReturn(getContentList("248456",Instant.parse("2020-05-22T10:30:00.000Z")));
 
         service.publish();
+    }
 
-        assertEquals("248569", contentList.get(0).getId());
+    @Test
+    public void publish_doesNotChangeNorPublishSpecifications_ifTheyHaveNotChangedInApigeeAfterTheyWerePublishedInCms() {
 
-        assertEquals(1, apiSpecifications.size());
+        // Mock repository call
+        List<ApiSpecification> specs = getApiSpecificationsList("248456",Optional.ofNullable(Instant.parse("2020-05-20T08:30:00.000Z")));
+        when(repository.findAllApiSpecifications()).thenReturn(specs);
 
-        assertTrue(html.contains("Some content"));
+        // Mock apigee service call
+        when(apigeeService.apigeeSpecsStatuses()).thenReturn(getContentList("248456",Instant.parse("2020-05-20T08:30:00.000Z")));
 
+        service.publish();
+    }
+
+    private List<Content> getContentList(String id, Instant modified){
+
+        Content content1 = new Content();
+        content1.setId("248569");
+        content1.setModified(Instant.parse("2020-05-10T10:30:00.000Z"));
+
+        Content content2 = new Content();
+        content2.setId(id);
+        content2.setModified(modified);
+
+        List<Content> contentList = new ArrayList<Content>();
+        contentList.add(content1);
+        contentList.add(content2);
+
+        return contentList;
+    }
+
+    private  List<ApiSpecification> getApiSpecificationsList(String id, Optional<Instant> lastPublicationInstant){
+
+        ApiSpecification spec1 = mock(ApiSpecification.class);
+        spec1.setHtml("<html><body> Some content spec1 </body></html>");
+        when(spec1.getId()).thenReturn("248569");
+        when(spec1.getLastPublicationInstant()).thenReturn(Optional.ofNullable(Instant.parse("2020-05-10T10:30:00.000Z")));
+
+        ApiSpecification spec2 = mock(ApiSpecification.class);
+        when(spec2.getId()).thenReturn(id);
+        when(spec2.getLastPublicationInstant()).thenReturn(lastPublicationInstant);
+
+        List<ApiSpecification> specs = new ArrayList<ApiSpecification>();
+        specs.add(spec1);
+        specs.add(spec2);
+
+        return specs;
     }
 }
