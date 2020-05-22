@@ -8,12 +8,14 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 import uk.nhs.digital.apispecs.config.ApigeeConfig;
 import uk.nhs.digital.apispecs.config.Authentication;
 import uk.nhs.digital.apispecs.dto.Content;
 import uk.nhs.digital.apispecs.dto.ContentsList;
 import uk.nhs.digital.apispecs.dto.Token;
 
+import java.net.URI;
 import java.time.Clock;
 import java.util.Arrays;
 import java.util.List;
@@ -64,7 +66,7 @@ public class ApigeeService {
             headers.set(AUTHORIZATION, BEARER + accessToken);
 
             HttpEntity<?> request = new HttpEntity<>(headers);
-            ResponseEntity<ContentsList> response = restTemplate.exchange(config.getSpecUrl().trim(), HttpMethod.GET, request, ContentsList.class);
+            ResponseEntity<ContentsList> response = restTemplate.exchange(config.getAllSpecUrl().trim(), HttpMethod.GET, request, ContentsList.class);
 
             if (response.getStatusCode() == HttpStatus.OK) {
 
@@ -94,7 +96,7 @@ public class ApigeeService {
         LOGGER.info("Calling Apigee endpoint to get specification for id : {}", specificationId);
 
         try {
-            String url = config.getDomain() + "/organizations/nhsd-nonprod/specs/doc/" + specificationId + "/content";
+            URI uri = UriComponentsBuilder.fromHttpUrl(config.getSingleSpecUrl() ).build(specificationId);
             String accessToken = getAccessToken();
             HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
@@ -102,7 +104,7 @@ public class ApigeeService {
             headers.set(AUTHORIZATION, BEARER + accessToken);
 
             HttpEntity<?> request = new HttpEntity<>(headers);
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(uri.getPath(), HttpMethod.GET, request, String.class);
 
             if (response.getStatusCode() == HttpStatus.OK) {
 

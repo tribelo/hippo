@@ -93,6 +93,9 @@
         <devzone.apigee.password></devzone.apigee.password>
         <devzone.apigee.basicauthtoken></devzone.apigee.basicauthtoken>
         <devzone.apigee.otpkey></devzone.apigee.otpkey>
+        <devzone.apigee.url.specs.all></devzone.apigee.url.specs.all>
+        <devzone.apigee.url.specs.individual></devzone.apigee.url.specs.individual>
+        <devzone.apigee.url.oauth.token></devzone.apigee.url.oauth.token>
 
         <!--<tomcatDistributionUrl>https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.48/bin/apache-tomcat-8.0.48.tar.gz</tomcatDistributionUrl>-->
 
@@ -865,6 +868,9 @@
                                     <devzone.apigee.password>${devzone.apigee.password}</devzone.apigee.password>
                                     <devzone.apigee.basicauthtoken>${devzone.apigee.basicauthtoken}</devzone.apigee.basicauthtoken>
                                     <devzone.apigee.otpkey>${devzone.apigee.otpkey}</devzone.apigee.otpkey>
+                                    <devzone.apigee.url.specs.all>${devzone.apigee.url.specs.all}</devzone.apigee.url.specs.all>
+                                    <devzone.apigee.url.specs.individual>${devzone.apigee.url.specs.individual}</devzone.apigee.url.specs.individual>
+                                    <devzone.apigee.url.oauth.token>${devzone.apigee.url.oauth.token}</devzone.apigee.url.oauth.token>
                                 </systemProperties>
                                 <dependencies>
                                     <dependency>

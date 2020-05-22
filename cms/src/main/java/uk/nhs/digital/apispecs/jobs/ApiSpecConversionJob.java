@@ -20,9 +20,9 @@ public class ApiSpecConversionJob implements RepositoryJob {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApiSpecConversionJob.class);
 
-    private static final String APIGEE_SPEC_URL = "apigeeSpecUrl";
-    private static final String OAUTH_TOKEN_URL = "oAuthTokenUrl";
-    private static final String DOMAIN_NAME = "domainName";
+    private static final String APIGEE_ALL_SPEC_URL = "devzone.apigee.url.specs.all";
+    private static final String OAUTH_TOKEN_URL = "devzone.apigee.url.oauth.token";
+    private static final String APIGEE_SINGLE_SPEC_URL = "devzone.apigee.url.specs.individual";
     private static final String OAUTH_TOKEN_USERNAME = "devzone.apigee.username";
     private static final String OAUTH_TOKEN_PASSWORD = "devzone.apigee.password";
     private static final String BASIC_TOKEN = "devzone.apigee.basicauthtoken";
@@ -33,10 +33,9 @@ public class ApiSpecConversionJob implements RepositoryJob {
 
         final Session session = context.createSession(new SimpleCredentials("admin", "admin".toCharArray()));
 
-        String apigeeUrl = context.getAttribute(APIGEE_SPEC_URL);
-        String tokenUrl = context.getAttribute(OAUTH_TOKEN_URL);
-        String domain = context.getAttribute(DOMAIN_NAME);
-
+        String apigeeAllSpecUrl = System.getProperty(APIGEE_ALL_SPEC_URL);
+        String apigeeSingleSpecUrl = System.getProperty(APIGEE_SINGLE_SPEC_URL);
+        String tokenUrl = System.getProperty(OAUTH_TOKEN_URL);
         String username = System.getProperty(OAUTH_TOKEN_USERNAME);
         String password = System.getProperty(OAUTH_TOKEN_PASSWORD);
         String basicToken = System.getProperty(BASIC_TOKEN);
@@ -44,7 +43,7 @@ public class ApiSpecConversionJob implements RepositoryJob {
 
         try {
             final RestTemplate restTemplate = new RestTemplate();
-            final ApigeeConfig config = new ApigeeConfig(apigeeUrl, tokenUrl, username, password, basicToken, otpKey, domain);
+            final ApigeeConfig config = new ApigeeConfig(apigeeAllSpecUrl, apigeeSingleSpecUrl, tokenUrl, username, password, basicToken, otpKey);
             final Clock clock = Clock.systemDefaultZone();
 
             final ApigeeService apigeeService = new ApigeeService(restTemplate, config, clock);

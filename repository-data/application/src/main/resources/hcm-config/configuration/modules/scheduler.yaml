@@ -17,28 +17,10 @@ definitions:
         - batchsize
         - minutestolive
         - excludepaths
-        - oaspath
-        - swaggerCodegenLibPath
-        - templatePath
-        - fileDestinationPath
-        - logFilesPath
-        - templateType
-        - apigeeSpecUrl
-        - oAuthTokenUrl
-        - domainName
         hipposched:attributeValues:
         - '100'
         - '120'
         - /formdata/permanent/
-        - https://github.com/NHSDigital/personal-demographics-service-api/releases/download/v1.1.167-beta/patient-demographics-service-api.json
-        - /home/monika/nhs_ws/hippo
-        - /home/monika/nhs_ws/hippo/repository-data/webfiles/src/main/resources/swagger-templates/htmlDocsNHS
-        - /home/monika/nhs_ws/hippo/repository-data/webfiles/src/main/resources/site/swagger/output
-        - /home/monika/nhs_ws/hippo/logs
-        - htmlnhs
-        - https://apigee.com/dapi/api/organizations/nhsd-nonprod/specs/folder/home
-        - https://login.apigee.com/oauth/token
-        - https://apigee.com/dapi/api
         hipposched:enabled: true
         hipposched:repositoryJobClass: uk.nhs.digital.apispecs.jobs.ApiSpecConversionJob
         jcr:primaryType: hipposched:repositoryjob
