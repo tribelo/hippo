@@ -46,37 +46,65 @@ public class ApiSpecPublicationServiceTest {
         lenient().when(htmlProvider.getHtmlForSpec(any())).thenReturn(s2html);
 
         // Mock repository call
-        List<ApiSpecification> specs = getApiSpecificationsList("248456",Optional.ofNullable(Instant.parse("2020-05-20T08:30:00.000Z")));
+        List<ApiSpecification> specs = getApiSpecificationsList("248569",Optional.ofNullable(Instant.parse("2020-05-10T10:30:00.000Z")),"248456",Optional.ofNullable(Instant.parse("2020-05-20T08:30:00.000Z")));
         when(repository.findAllApiSpecifications()).thenReturn(specs);
 
         // Mock apigee service call
-        when(apigeeService.apigeeSpecsStatuses()).thenReturn(getContentList("248456",Instant.parse("2020-05-22T10:30:00.000Z")));
+        when(apigeeService.apigeeSpecsStatuses()).thenReturn(getContentList("248569",Instant.parse("2020-05-10T10:30:00.000Z"),"248456",Instant.parse("2020-05-22T10:30:00.000Z")));
 
         service.publish();
+
+        verify(specs.get(1)).setHtml(s2html);
+        verify(specs.get(1)).saveAndPublish();
     }
 
     @Test
     public void publish_doesNotChangeNorPublishSpecifications_ifTheyHaveNotChangedInApigeeAfterTheyWerePublishedInCms() {
 
         // Mock repository call
-        List<ApiSpecification> specs = getApiSpecificationsList("248456",Optional.ofNullable(Instant.parse("2020-05-20T08:30:00.000Z")));
+        List<ApiSpecification> specs = getApiSpecificationsList("248569",Optional.ofNullable(Instant.parse("2020-05-10T10:30:00.000Z")),"248456",Optional.ofNullable(Instant.parse("2020-05-20T08:30:00.000Z")));
         when(repository.findAllApiSpecifications()).thenReturn(specs);
 
         // Mock apigee service call
-        when(apigeeService.apigeeSpecsStatuses()).thenReturn(getContentList("248456",Instant.parse("2020-05-20T08:30:00.000Z")));
+        when(apigeeService.apigeeSpecsStatuses()).thenReturn(getContentList("248569",Instant.parse("2020-05-10T10:30:00.000Z"),"248456",Instant.parse("2020-05-20T08:30:00.000Z")));
 
         service.publish();
+
+        verify(specs.get(0), never()).setHtml("");
+        verify(specs.get(1), never()).setHtml("");
+
+        verify(specs.get(0), never()).saveAndPublish();
+        verify(specs.get(1), never()).saveAndPublish();
     }
 
-    private List<Content> getContentList(String id, Instant modified){
+    @Test
+    public void publish_doesNotChangeNorPublishSpecifications_ifTheyDoNotHaveMatchingCounterpartsInApigee() {
+
+        // Mock repository call
+        List<ApiSpecification> specs = getApiSpecificationsList("248566",Optional.ofNullable(Instant.parse("2020-05-10T10:30:00.000Z")),"248567",Optional.ofNullable(Instant.parse("2020-05-20T08:30:00.000Z")));
+        when(repository.findAllApiSpecifications()).thenReturn(specs);
+
+        // Mock apigee service call
+        when(apigeeService.apigeeSpecsStatuses()).thenReturn(getContentList("248568",Instant.parse("2020-05-10T11:30:00.000Z"),"248569",Instant.parse("2020-05-22T09:30:00.000Z")));
+
+        service.publish();
+
+        verify(specs.get(0), never()).setHtml("");
+        verify(specs.get(1), never()).setHtml("");
+
+        verify(specs.get(0), never()).saveAndPublish();
+        verify(specs.get(1), never()).saveAndPublish();
+    }
+
+    private List<Content> getContentList(String id1, Instant modified1, String id2, Instant modified2){
 
         Content content1 = new Content();
-        content1.setId("248569");
-        content1.setModified(Instant.parse("2020-05-10T10:30:00.000Z"));
+        content1.setId(id1);
+        content1.setModified(modified1);
 
         Content content2 = new Content();
-        content2.setId(id);
-        content2.setModified(modified);
+        content2.setId(id2);
+        content2.setModified(modified2);
 
         List<Content> contentList = new ArrayList<Content>();
         contentList.add(content1);
@@ -85,16 +113,16 @@ public class ApiSpecPublicationServiceTest {
         return contentList;
     }
 
-    private  List<ApiSpecification> getApiSpecificationsList(String id, Optional<Instant> lastPublicationInstant){
+    private  List<ApiSpecification> getApiSpecificationsList(String id1, Optional<Instant> lastPublicationInstant1, String id2, Optional<Instant> lastPublicationInstant2){
 
         ApiSpecification spec1 = mock(ApiSpecification.class);
         spec1.setHtml("<html><body> Some content spec1 </body></html>");
-        when(spec1.getId()).thenReturn("248569");
-        when(spec1.getLastPublicationInstant()).thenReturn(Optional.ofNullable(Instant.parse("2020-05-10T10:30:00.000Z")));
+        when(spec1.getId()).thenReturn(id1);
+        when(spec1.getLastPublicationInstant()).thenReturn(lastPublicationInstant1);
 
         ApiSpecification spec2 = mock(ApiSpecification.class);
-        when(spec2.getId()).thenReturn(id);
-        when(spec2.getLastPublicationInstant()).thenReturn(lastPublicationInstant);
+        when(spec2.getId()).thenReturn(id2);
+        when(spec2.getLastPublicationInstant()).thenReturn(lastPublicationInstant2);
 
         List<ApiSpecification> specs = new ArrayList<ApiSpecification>();
         specs.add(spec1);
