@@ -41,22 +41,26 @@ public class Authentication {
     }
 
     public String googleAuthenticatorCode(String secret, Clock clock) throws Exception {
-        if (secret == null || secret == "") {
-            throw new Exception("Secret key does not exist.");
+        try {
+            if (secret == null || secret == "") {
+                throw new Exception("Secret key does not exist.");
+            }
+            long value = clock.millis() / TimeUnit.SECONDS.toMillis(30);
+
+            Base32 base = new Base32(Base32.Alphabet.BASE32, false, true);
+            byte[] key = base.fromString(secret);
+
+            byte[] data = new byte[8];
+            for (int i = 8; i-- > 0; value >>>= 8) {
+                data[i] = (byte) value;
+            }
+
+            byte[] hash = hmacSha1(data, key);
+
+            return truncateHash(hash);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to generate one time password.", e);
         }
-        long value = clock.millis() / TimeUnit.SECONDS.toMillis(30);
-
-        Base32 base = new Base32(Base32.Alphabet.BASE32, false, true);
-        byte[] key = base.fromString(secret);
-
-        byte[] data = new byte[8];
-        for (int i = 8; i-- > 0; value >>>= 8) {
-            data[i] = (byte) value;
-        }
-
-        byte[] hash = hmacSha1(data, key);
-
-        return truncateHash(hash);
     }
 
 }

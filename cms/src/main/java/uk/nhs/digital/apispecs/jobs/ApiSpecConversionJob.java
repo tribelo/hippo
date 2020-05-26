@@ -21,6 +21,7 @@ public class ApiSpecConversionJob implements RepositoryJob {
 
     private static final String APIGEE_ALL_SPEC_URL = "devzone.apigee.resources.specs.all.url";
     private static final String APIGEE_SINGLE_SPEC_URL = "devzone.apigee.resources.specs.individual.url";
+
     private static final String OAUTH_TOKEN_URL = "devzone.apigee.oauth.token.url";
     private static final String OAUTH_TOKEN_USERNAME = "devzone.apigee.oauth.username";
     private static final String OAUTH_TOKEN_PASSWORD = "devzone.apigee.oauth.password";
@@ -42,7 +43,16 @@ public class ApiSpecConversionJob implements RepositoryJob {
 
         try {
             final RestTemplate restTemplate = new RestTemplate();
-            final ApigeeConfig config = new ApigeeConfig(apigeeAllSpecUrl, apigeeSingleSpecUrl, tokenUrl, username, password, basicToken, otpKey);
+
+            final ApigeeConfig config = new ApigeeConfig(
+                apigeeAllSpecUrl,
+                apigeeSingleSpecUrl,
+                tokenUrl,
+                username,
+                password,
+                basicToken,
+                otpKey);
+
             final Clock clock = Clock.systemDefaultZone();
 
             final ApigeeService apigeeService = new ApigeeService(restTemplate, config, clock);
@@ -55,8 +65,8 @@ public class ApiSpecConversionJob implements RepositoryJob {
 
             apiSpecPublicationService.publish();
 
-        } catch (Exception ex) {
-            LOGGER.error(ex.getLocalizedMessage());
+        } catch (final Exception ex) {
+            LOGGER.error("Failed to publish specifications.", ex);
         } finally {
             session.logout();
         }

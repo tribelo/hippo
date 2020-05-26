@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import uk.nhs.digital.apispecs.config.ApigeeConfig;
@@ -24,12 +22,14 @@ public class ApigeeService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApigeeService.class);
 
-    private static final String ERR_MSG_APIGEE_FAIL_WITH_ERR_CODE = "Call to Apigee Spec endpoint failed with error code : {}";
-    private static final String ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG = "Call to Apigee Spec endpoint failed with error message : {}";
-    private static final String ERR_MSG_APIGEE_FAIL = "Call to Apigee Spec endpoint failed with error message : ";
-    private static final String ERR_CODE_APIGEE_FAIL = "Call to Apigee Spec endpoint failed with error code : ";
-    private static final String ERR_MSG_OAUTH_FAIL_WITH_ERR_CODE = "Call to oAuth token endpoint failed with error code : {}";
-    private static final String ERR_CODE_OAUTH_FAIL = "Call to oAuth token endpoint failed with error code : ";
+    private static final String ERR_MSG_APIGEE_LIST_SPECS = "Failed to retrieve list of specifications from Apigee";
+    private static final String ERR_MSG_APIGEE_SINGLE_SPEC = "Failed to retrieve specification from Apigee; spec id:";
+
+    private static final String ERR_MSG_APIGEE_FAIL_WITH_HTTP_CODE = "Apigee responded with code : ";
+    private static final String ERR_MSG_APIGEE_FAIL_WITH_RESPONSE = "Call to Apigee has failed; response: {}";
+
+    private static final String ERR_MSG_OAUTH_TOKEN_FAIL = "Failed to obtain oAuth token from Apigee.";
+
 
     private static final String AUTHORIZATION = "Authorization";
     private static final String BASIC = "Basic ";
@@ -56,13 +56,12 @@ public class ApigeeService {
 
     private List<Content> getContentList() throws ApigeeServiceException {
 
-        LOGGER.info("Calling Apigee endpoint to get list of specifications...");
+        LOGGER.info("Retrieving list of available specifications.");
 
         try {
             String accessToken = getAccessToken();
             HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
-            headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set(AUTHORIZATION, BEARER + accessToken);
 
             HttpEntity<?> request = new HttpEntity<>(headers);
@@ -72,87 +71,74 @@ public class ApigeeService {
 
                 return response.getBody().getContents();
             } else {
-                LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_CODE, response.getStatusCode());
-                throw new ApigeeServiceException(ERR_CODE_APIGEE_FAIL + response.getStatusCode(), response.getStatusCode());
+                LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_RESPONSE, response);
+                throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL_WITH_HTTP_CODE + response.getStatusCode());
             }
 
-        } catch (HttpClientErrorException ex) {
-
-            LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getMessage());
-            throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getStatusCode());
-        } catch (HttpServerErrorException ex) {
-
-            LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getMessage());
-            throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG + ex.getMessage(), ex.getStatusCode());
         } catch (Exception ex) {
-
-            LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getMessage());
-            throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL + ex.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
+            throw new ApigeeServiceException(ERR_MSG_APIGEE_LIST_SPECS, ex);
         }
     }
 
     public String getSpecification(final String specificationId) {
 
-        LOGGER.info("Calling Apigee endpoint to get specification for id : {}", specificationId);
+        LOGGER.info("Retrieving specification with id {}.", specificationId);
 
         try {
-            URI uri = UriComponentsBuilder.fromHttpUrl(config.getSingleSpecUrl() ).build(specificationId);
+            String uri = UriComponentsBuilder.fromHttpUrl(config.getSingleSpecUrl()).build(specificationId).toString();
             String accessToken = getAccessToken();
             HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
-            headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set(AUTHORIZATION, BEARER + accessToken);
 
             HttpEntity<?> request = new HttpEntity<>(headers);
-            ResponseEntity<String> response = restTemplate.exchange(uri.getPath(), HttpMethod.GET, request, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, request, String.class);
 
             if (response.getStatusCode() == HttpStatus.OK) {
 
                 return response.getBody();
             } else {
-                LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_CODE, response.getStatusCode());
-                throw new ApigeeServiceException(ERR_CODE_APIGEE_FAIL + response.getStatusCode(), response.getStatusCode());
+                LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_RESPONSE, response);
+
+                throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL_WITH_HTTP_CODE + response.getStatusCode());
             }
 
-        } catch (HttpClientErrorException ex) {
-
-            LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getMessage());
-            throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getStatusCode());
-        } catch (HttpServerErrorException ex) {
-
-            LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getMessage());
-            throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG + ex.getMessage(), ex.getStatusCode());
         } catch (Exception ex) {
-
-            LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_ERR_MSG, ex.getMessage());
-            throw new ApigeeServiceException(ERR_MSG_APIGEE_FAIL + ex.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
+            throw new ApigeeServiceException(ERR_MSG_APIGEE_SINGLE_SPEC + specificationId, ex);
         }
     }
 
     private String getAccessToken() throws Exception {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.set(AUTHORIZATION, BASIC + config.getBasicToken());
+        LOGGER.info("Fetching OAuth token.");
 
-        Authentication auth = new Authentication();
-        MultiValueMap<String, String> bodyParamMap = new LinkedMultiValueMap<>();
-        bodyParamMap.add(USERNAME, config.getUsername());
-        bodyParamMap.add(PASSWORD, config.getPassword());
-        bodyParamMap.add(GRANT_TYPE, PASSWORD);
-        bodyParamMap.add(MFA_TOKEN, auth.googleAuthenticatorCode(config.getOtpKey(), clock));
+        ResponseEntity<Token> response;
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+            headers.set(AUTHORIZATION, BASIC + config.getBasicToken());
 
-        HttpEntity<?> request = new HttpEntity<>(bodyParamMap,headers);
-        ResponseEntity<Token> response = restTemplate.exchange(config.getTokenUrl().trim(), HttpMethod.POST, request, Token.class);
+            Authentication auth = new Authentication();
+            MultiValueMap<String, String> bodyParamMap = new LinkedMultiValueMap<>();
+            bodyParamMap.add(USERNAME, config.getUsername());
+            bodyParamMap.add(PASSWORD, config.getPassword());
+            bodyParamMap.add(GRANT_TYPE, PASSWORD);
+            bodyParamMap.add(MFA_TOKEN, auth.googleAuthenticatorCode(config.getOtpKey(), clock));
+
+            HttpEntity<?> request = new HttpEntity<>(bodyParamMap,headers);
+            response = restTemplate.exchange(config.getTokenUrl().trim(), HttpMethod.POST, request, Token.class);
+        } catch (Exception e) {
+            throw new RuntimeException(ERR_MSG_OAUTH_TOKEN_FAIL, e);
+        }
 
         if (response.getStatusCode() == HttpStatus.OK) {
 
             return response.getBody().getAccessToken();
         } else {
+            LOGGER.error(ERR_MSG_APIGEE_FAIL_WITH_RESPONSE, response);
 
-            LOGGER.error(ERR_MSG_OAUTH_FAIL_WITH_ERR_CODE, response.getStatusCode());
-            throw new RuntimeException(ERR_CODE_OAUTH_FAIL + response.getStatusCode());
+            throw new RuntimeException(ERR_MSG_OAUTH_TOKEN_FAIL);
         }
     }
 }

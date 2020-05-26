@@ -16,14 +16,18 @@ import static uk.nhs.digital.test.util.FileUtils.readFileInClassPath;
 
 public class SwaggerCodeGenApiSpecHtmlProviderTest {
 
+    private static final String TEST_DATA_FILES_PATH =
+        "/test-data/api-specifications/SwaggerCodeGenApiSpecHtmlProviderTest";
+
     @Rule public ExpectedException expectedException = ExpectedException.none();
 
     @Mock private ApigeeService apigeeService;
     @Mock private ApiSpecification apiSpecification;
 
-    private SwaggerCodeGenApiSpecHtmlProvider swaggerCodeGenApiSpecHtmlProvider;
-
     private final String specificationId = "123456";
+
+
+    private SwaggerCodeGenApiSpecHtmlProvider swaggerCodeGenApiSpecHtmlProvider;
 
     @Before
     public void setUp() {
@@ -93,10 +97,10 @@ public class SwaggerCodeGenApiSpecHtmlProviderTest {
     }
 
     private String apigeeApiSpecificationJson() {
-        return readFileInClassPath("/test-data/api-specifications/SwaggerCodeGenApiSpecHtmlProviderTest/realistic-openapi-v3-specification.json");
+        return readFileInClassPath(TEST_DATA_FILES_PATH + "/realistic-openapi-v3-specification.json");
     }
 
     private String vanillaSwaggerCodeGenGeneratedSpecificationHtml() {
-        return readFileInClassPath("/test-data/api-specifications/SwaggerCodeGenApiSpecHtmlProviderTest/vanilla-codegen-v3-generated-spec.html");
+        return readFileInClassPath(TEST_DATA_FILES_PATH + "/vanilla-codegen-v3-generated-spec.html");
     }
 }

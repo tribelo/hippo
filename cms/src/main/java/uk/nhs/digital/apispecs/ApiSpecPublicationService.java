@@ -72,7 +72,14 @@ public class ApiSpecPublicationService {
 
     private Predicate<ApiSpecification> specificationsChangedInApigeeAfterPublishedInCms(
         final Map<String, Content> apigeeSpecsById) {
-        return apiSpecification -> apigeeSpecsById.get(apiSpecification.getId()).getModified().isAfter(apiSpecification.getLastPublicationInstant().orElse(Instant.EPOCH));
+        return apiSpecification -> {
+            final Content apigeeSpec = apigeeSpecsById.get(apiSpecification.getId());
+
+            final Instant cmsSpecificationLastPublicationInstant =
+                apiSpecification.getLastPublicationInstant().orElse(Instant.EPOCH);
+
+            return apigeeSpec.getModified().isAfter(cmsSpecificationLastPublicationInstant);
+        };
     }
 
     private Predicate<ApiSpecification> specificationsPresentInBothSystems(

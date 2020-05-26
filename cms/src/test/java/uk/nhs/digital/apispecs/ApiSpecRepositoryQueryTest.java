@@ -7,10 +7,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import uk.nhs.digital.test.util.JcrTestUtils;
 import uk.nhs.digital.test.util.ReflectionTestUtils;
 
 import javax.jcr.Node;
-import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -172,31 +172,13 @@ public class ApiSpecRepositoryQueryTest {
 
     private void apiSpecsPresentInTheSystem() {
 
-        initJcrRepoFromYaml(session, "/test-data/api-specifications/ApiSpecRepositoryTest/api-specifications.yml");
+        initJcrRepoFromYaml(session, "/test-data/api-specifications/ApiSpecRepositoryQueryTest/api-specifications.yml");
 
-        final Node rootNode = rootNodeOf(session);
+        final Node rootNode = JcrTestUtils.getRootNode(session);
 
         MockJcr.setQueryResult(session, asList(
-            getNode(rootNode, "/content/documents/corporate-website/api-specifications-location-a/api-spec-a"),
-            getNode(rootNode, "/content/documents/corporate-website/api-specifications-location-b/api-spec-b")
+            JcrTestUtils.getRelativeNode(rootNode, "/content/documents/corporate-website/api-specifications-location-a/api-spec-a"),
+            JcrTestUtils.getRelativeNode(rootNode, "/content/documents/corporate-website/api-specifications-location-b/api-spec-b")
         ));
-    }
-
-    private Node getNode(final Node rootNode, final String jcrPath) {
-        try {
-            return rootNode.getNode(jcrPath);
-        } catch (RepositoryException e) {
-            throw new RuntimeException("Failed to obtain node " + jcrPath);
-        }
-    }
-
-    private Node rootNodeOf(final Session session) {
-        final Node rootNode;
-        try {
-            rootNode = session.getRootNode();
-        } catch (RepositoryException e) {
-            throw new RuntimeException("Failed to obtain root node from session", e);
-        }
-        return rootNode;
     }
 }
