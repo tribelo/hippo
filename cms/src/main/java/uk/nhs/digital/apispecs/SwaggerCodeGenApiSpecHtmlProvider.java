@@ -94,10 +94,8 @@ public class SwaggerCodeGenApiSpecHtmlProvider implements ApiSpecHtmlProvider {
 
         final ClientOpts clientOptions = new ClientOpts();
 
-        clientOptions.setOutputDirectory(swaggerOutputDirectory.getPath());
-        // clientOptions.setUri(openApiSpecificationJson.toURI().toASCIIString());
-
         final CodegenConfig codegenConfig = new StaticHtml2Codegen();
+        codegenConfig.setOutputDir(swaggerOutputDirectory.getPath());
 
         clientOptInput
             .opts(clientOptions)
