@@ -1,16 +1,16 @@
 package uk.nhs.digital.test.util;
 
-import static java.util.Collections.emptyMap;
-
 import org.apache.sling.testing.mock.jcr.MockJcr;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
 import javax.jcr.Node;
 import javax.jcr.Repository;
 import javax.jcr.Session;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.Collections.emptyMap;
 
 public class MockJcrRepoProvider {
 
@@ -21,30 +21,11 @@ public class MockJcrRepoProvider {
         try {
             repository = MockJcr.newRepository();
             session = repository.login();
-            Node rootNode = session.getRootNode();
-
-            List<Map<String, Object>> nodes = parseYaml(fileClassPath);
-
-            for (Map object: nodes) {
-                NodeYaml node = new NodeYaml(
-                    (String) object.get("path"),
-                    (String) object.get("primaryType"),
-                    (Map<String, Object>) object.getOrDefault("properties", emptyMap())
-                );
-                Node secondaryNode = rootNode.addNode(node.path, node.primaryType);
-                for (Map.Entry<String, Object> entry : node.properties.entrySet()) {
-                    if (entry.getValue() instanceof Boolean) {
-                        secondaryNode.setProperty(entry.getKey(), (Boolean) entry.getValue());
-                    } else {
-                        secondaryNode.setProperty(entry.getKey(), entry.getValue().toString());
-                    }
-                }
-            }
-
-            session.save();
-        } catch (final Exception exception) {
-            throw new RuntimeException("Failed to load JCR content from fixture file " + fileClassPath, exception);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load JCR content from fixture file " + fileClassPath, e);
         }
+
+        initJcrRepoFromYaml(session, fileClassPath);
 
         return session;
     }
