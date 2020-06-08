@@ -52,7 +52,7 @@
         <@textBanner document />
     </#if>
     <#if publicationStyle == 'heromodule'>
-        <@hst.link hippobean=document.bannerImage.original fullyQualified=true var="bannerImage" />
+        <@hst.link hippobean=document.bannerImage.pageHeaderHeroModule fullyQualified=true var="bannerImage" />
         <#assign heroConfig = {
         "document": document,
         "bannerImage": bannerImage,
