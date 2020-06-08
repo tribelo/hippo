@@ -83,6 +83,8 @@
 [website:contactdetailextended] > website:contactdetail
   orderable
 
+[website:corporateWebsiteImageset] > hippogallery:imageset, hippogallery:relaxed
+
 [website:ctabutton] > hippo:compound, hippostd:relaxed
   orderable
 
@@ -395,9 +397,6 @@
   orderable
 
 [website:threatupdate] > hippo:compound, hippostd:relaxed
-  orderable
-
-[website:update] > hippostd:relaxed, hippotranslation:translated, website:basedocument
   orderable
 
 [website:tilesectionvisualhub] > hippo:compound, hippostd:relaxed
