@@ -62,6 +62,14 @@ definitions:
       optimize: quality
       upscaling: true
       width: 341
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:homeBlogThumbSmall2x:
+      compression: 0.6
+      cropping: true
+      height: 368
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: true
+      width: 682
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:newsFeaturedPost:
       .meta:order-before: website:homeBlogThumbSmall
       compression: 0.8
@@ -71,6 +79,15 @@ definitions:
       optimize: quality
       upscaling: false
       width: 696
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:newsFeaturedPost2x:
+      .meta:order-before: website:homeBlogThumbSmall
+      compression: 0.6
+      cropping: false
+      height: 928
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: false
+      width: 1392
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:newsPostImage:
       .meta:order-before: website:homeBlogThumbSmall
       compression: 0.8
@@ -80,6 +97,15 @@ definitions:
       optimize: quality
       upscaling: false
       width: 640
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:newsPostImage2x:
+      .meta:order-before: website:homeBlogThumbSmall
+      compression: 0.6
+      cropping: false
+      height: 1280
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: false
+      width: 1280
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:newsThumbnail:
       .meta:order-before: website:newsPostImage
       compression: 0.8
@@ -89,6 +115,15 @@ definitions:
       optimize: quality
       upscaling: false
       width: 154
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:newsThumbnail2x:
+      .meta:order-before: website:newsPostImage
+      compression: 0.6
+      cropping: false
+      height: 0
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: false
+      width: 308
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:oldArticleThumbnail:
       .meta:order-before: website:homeBlogThumbSmall
       compression: 0.8
@@ -98,6 +133,15 @@ definitions:
       optimize: quality
       upscaling: false
       width: 616
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:oldArticleThumbnail2x:
+      .meta:order-before: website:homeBlogThumbSmall
+      compression: 0.6
+      cropping: false
+      height: 0
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: false
+      width: 1232
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:pageHeaderHeroModule:
       .meta:order-before: website:newsFeaturedPost
       compression: 0.8
@@ -109,7 +153,7 @@ definitions:
       width: 1270
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:pageHeaderHeroModule2x:
       .meta:order-before: website:newsFeaturedPost
-      compression: 0.8
+      compression: 0.6
       cropping: false
       height: 1650
       jcr:primaryType: frontend:pluginconfig
@@ -124,6 +168,14 @@ definitions:
       optimize: quality
       upscaling: true
       width: 375
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:pageHeaderHeroModuleSmall2x:
+      compression: 0.6
+      cropping: true
+      height: 750
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: true
+      width: 750
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:pageHeaderSlimBanner:
       .meta:order-before: website:newsFeaturedPost
       compression: 0.8
@@ -133,6 +185,15 @@ definitions:
       optimize: quality
       upscaling: true
       width: 1270
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:pageHeaderSlimBanner2x:
+      .meta:order-before: website:newsFeaturedPost
+      compression: 0.6
+      cropping: true
+      height: 1000
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: true
+      width: 2540
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:pageHeaderSlimBannerSmall:
       compression: 0.8
       cropping: false
@@ -141,6 +202,14 @@ definitions:
       optimize: quality
       upscaling: false
       width: 375
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:pageHeaderSlimBannerSmall2x:
+      compression: 0.6
+      cropping: false
+      height: 1000
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: false
+      width: 750
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:postImageSmall:
       compression: 0.8
       cropping: false
@@ -149,6 +218,14 @@ definitions:
       optimize: quality
       upscaling: false
       width: 343
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:postImageSmall2x:
+      compression: 0.6
+      cropping: false
+      height: 0
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: false
+      width: 686
     /hippo:configuration/hippo:frontend/cms/cms-services/imageValidationService:
       extensions.allowed:
       - jpg
@@ -156,6 +233,8 @@ definitions:
       - gif
       - png
       - svg
+      max.height: 1650
+      max.width: 2540
     /hippo:configuration/hippo:frontend/cms/cms-services/localeProviderService:
       /en:
         country: gb

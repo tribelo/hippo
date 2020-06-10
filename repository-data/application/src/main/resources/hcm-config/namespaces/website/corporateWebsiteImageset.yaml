@@ -76,9 +76,21 @@ definitions:
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
+          /pageHeaderSlimBanner2x:
+            caption: Page Header - Slim Banner@2x
+            field: pageHeaderSlimBanner2x
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
           /newsFeaturedPost:
             caption: News - Featured Post
             field: newsFeaturedPost
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /newsFeaturedPost2x:
+            caption: News - Featured Post@2x
+            field: newsFeaturedPost2x
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
@@ -88,9 +100,21 @@ definitions:
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
+          /newsThumbnail2x:
+            caption: News - Thumbnail@2x
+            field: newsThumbnail2x
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
           /newsPostImage:
-            caption: newsPostImage
+            caption: News Post Image
             field: newsPostImage
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /newsPostImage2x:
+            caption: News Post Image@2x
+            field: newsPostImage2x
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
@@ -100,27 +124,57 @@ definitions:
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
+          /oldArticleThumbnail2x:
+            caption: Old Article Thumbnail @2x
+            field: oldArticleThumbnail2x
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
           /homeBlogThumbSmall:
-            caption: homeBlogThumbSmall
+            caption: Home Blog Thumb - Small
+            field: homeBlogThumbSmall
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /homeBlogThumbSmall2x:
+            caption: Home Blog Thumb - Small@2x
             field: homeBlogThumbSmall
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
           /pageHeaderHeroModuleSmall:
-            caption: pageHeaderHeroModuleSmall
+            caption: Page Header Hero Module - Small
+            field: pageHeaderHeroModuleSmall
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /pageHeaderHeroModuleSmall2x:
+            caption: Page Header Hero Module - Small@2x
             field: pageHeaderHeroModuleSmall
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
           /pageHeaderSlimBannerSmall:
-            caption: pageHeaderSlimBannerSmall
+            caption: Page Header Slim Banner - Small
             field: pageHeaderSlimBannerSmall
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /pageHeaderSlimBannerSmall2x:
+            caption: Page Header Slim Banner - Small@2x
+            field: pageHeaderSlimBannerSmall2x
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
           /postImageSmall:
             caption: postImageSmall
             field: postImageSmall
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /postImageSmall2x:
+            caption: Post Image - Small@2x
+            field: postImageSmall2x
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
@@ -147,20 +201,40 @@ definitions:
             hipposysedit:path: website:homeBlogThumbSmall
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
+          /homeBlogThumbSmall2x:
+            hipposysedit:path: website:homeBlogThumbSmall2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
           /newsFeaturedPost:
             hipposysedit:path: website:newsFeaturedPost
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /newsFeaturedPost2x:
+            hipposysedit:path: website:newsFeaturedPost2x
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /newsPostImage:
             hipposysedit:path: website:newsPostImage
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
+          /newsPostImage2x:
+            hipposysedit:path: website:newsPostImage2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
           /newsThumbnail:
             hipposysedit:path: website:newsThumbnail
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
+          /newsThumbnail2x:
+            hipposysedit:path: website:newsThumbnail2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
           /oldArticleThumbnail:
             hipposysedit:path: website:oldArticleThumbnail
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /oldArticleThumbnail2x:
+            hipposysedit:path: website:oldArticleThumbnail2x
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /original:
@@ -179,16 +253,32 @@ definitions:
             hipposysedit:path: website:pageHeaderHeroModuleSmall
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
+          /pageHeaderHeroModuleSmall2x:
+            hipposysedit:path: website:pageHeaderHeroModuleSmall2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
           /pageHeaderSlimBanner:
             hipposysedit:path: website:pageHeaderSlimBanner
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /pageHeaderSlimBanner2x:
+            hipposysedit:path: website:pageHeaderSlimBanner2x
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /pageHeaderSlimBannerSmall:
             hipposysedit:path: website:pageHeaderSlimBannerSmall
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
+          /pageHeaderSlimBannerSmall2x:
+            hipposysedit:path: website:pageHeaderSlimBannerSmall2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
           /postImageSmall:
             hipposysedit:path: website:postImageSmall
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /postImageSmall2x:
+            hipposysedit:path: website:postImageSmall2x
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /thumbnail:
