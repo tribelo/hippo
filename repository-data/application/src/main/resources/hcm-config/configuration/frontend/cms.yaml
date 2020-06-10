@@ -46,6 +46,14 @@ definitions:
       optimize: quality
       upscaling: true
       width: 468
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:homeBlogThumb2x:
+      compression: 0.8
+      cropping: true
+      height: 368
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: true
+      width: 936
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:homeBlogThumbSmall:
       compression: 0.8
       cropping: true
@@ -99,6 +107,15 @@ definitions:
       optimize: quality
       upscaling: false
       width: 1270
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:pageHeaderHeroModule2x:
+      .meta:order-before: website:newsFeaturedPost
+      compression: 0.8
+      cropping: false
+      height: 1650
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: false
+      width: 2540
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:pageHeaderHeroModuleSmall:
       compression: 0.8
       cropping: true

@@ -52,9 +52,21 @@ definitions:
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
+          /homeBlogThumb2x:
+            caption: Home Blog Thumb@2x
+            field: homeBlogThumb2x
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
           /pageHeaderHeroModule:
             caption: Page Header - Hero Module
             field: pageHeaderHeroModule
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /pageHeaderHeroModule2x:
+            caption: Page Header - Hero Module@2x
+            field: pageHeaderHeroModule2x
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
@@ -127,6 +139,10 @@ definitions:
             hipposysedit:path: website:homeBlogThumb
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
+          /homeBlogThumb2x:
+            hipposysedit:path: website:homeBlogThumb2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
           /homeBlogThumbSmall:
             hipposysedit:path: website:homeBlogThumbSmall
             hipposysedit:type: hippogallery:image
@@ -153,6 +169,10 @@ definitions:
             jcr:primaryType: hipposysedit:field
           /pageHeaderHeroModule:
             hipposysedit:path: website:pageHeaderHeroModule
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /pageHeaderHeroModule2x:
+            hipposysedit:path: website:pageHeaderHeroModule2x
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /pageHeaderHeroModuleSmall:
