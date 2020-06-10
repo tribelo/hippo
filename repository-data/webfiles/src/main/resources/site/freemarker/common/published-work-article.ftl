@@ -51,15 +51,22 @@
     <#if publicationStyle == 'bluebanner'>
         <@textBanner document />
     </#if>
+
     <#if publicationStyle == 'heromodule'>
+        <@hst.link hippobean=document.bannerImage.pageHeaderHeroModuleSmall2x fullyQualified=true var="bannerImageSmall2x" />
+        <@hst.link hippobean=document.bannerImage.pageHeaderHeroModuleSmall fullyQualified=true var="bannerImageSmall" />
+        <@hst.link hippobean=document.bannerImage.pageHeaderHeroModule2x fullyQualified=true var="bannerImage2x" />
         <@hst.link hippobean=document.bannerImage.pageHeaderHeroModule fullyQualified=true var="bannerImage" />
         <#assign heroConfig = {
-        "document": document,
-        "bannerImage": bannerImage,
-        "bannerImageAltText": document.bannerImageAltText,
-        "button": document.button,
-        "buttonText": "Jump to overview",
-        "showTime": true
+            "document": document,
+            "bannerImageSmall": bannerImageSmall,
+            "bannerImageSmall2x": bannerImageSmall2x,
+            "bannerImage": bannerImage,
+            "bannerImage2x": bannerImage2x,
+            "bannerImageAltText": document.bannerImageAltText,
+            "button": document.button,
+            "buttonText": "Jump to overview",
+            "showTime": true
         } />
         <@heroModule heroConfig />
     </#if>
