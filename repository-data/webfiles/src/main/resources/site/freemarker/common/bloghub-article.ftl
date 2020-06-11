@@ -122,8 +122,14 @@
                                           <div class="bloghub__item__content__author__imgs">
                                             <#list latest.authors as author>
                                               <#if author.personimages.picture?has_content>
-                                                <@hst.link hippobean=author.personimages.picture.original fullyQualified=true var="authorImage" />
-                                                <img itemprop="image" class="bloghub__item__content__author__img" src="${authorImage}" alt="${author.title}" />
+                                                <@hst.link hippobean=author.personimages.picture.authorPhoto fullyQualified=true var="authorImage" />
+                                                <@hst.link hippobean=author.personimages.picture.authorPhoto2x fullyQualified=true var="authorImage2x" />
+                                                  <img itemprop="image"
+                                                       class="bloghub__item__content__author__img"
+                                                       srcset="${authorImage} 50px, ${authorPhoto2x} 100px"
+                                                       sizes="50px"
+                                                       src="${authorImage}"
+                                                       alt="${author.title}"/>
                                               </#if>
                                             </#list>
                                           </div>

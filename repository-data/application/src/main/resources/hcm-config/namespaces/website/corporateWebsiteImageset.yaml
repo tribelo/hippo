@@ -118,6 +118,18 @@ definitions:
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
+          /newsPostImageLarge:
+            caption: News Post Image - Large
+            field: newsPostImageLarge
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /newsPostImageLarge2x:
+            caption: News Post Image - Large@2x
+            field: newsPostImageLarge2x
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
           /newsPostImage:
             caption: News Post Image
             field: newsPostImage
@@ -190,6 +202,30 @@ definitions:
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
+          /authorPhoto:
+            caption: Author Image
+            field: authorPhoto
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /authorPhoto2x:
+            caption: Author Image@2x
+            field: authorPhoto2x
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /authorPhotoLarge:
+            caption: Author Image - Large
+            field: authorPhotoLarge
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /authorPhotoLarge2x:
+            caption: Author Image - Large@2x
+            field: authorPhotoLarge2x
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
         jcr:primaryType: editor:templateset
       /hipposysedit:nodetype:
         /hipposysedit:nodetype:
@@ -231,6 +267,14 @@ definitions:
             jcr:primaryType: hipposysedit:field
           /newsFeaturedPost2x:
             hipposysedit:path: website:newsFeaturedPost2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /newsPostImageLarge:
+            hipposysedit:path: website:newsPostImageLarge
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /newsPostImageLarge2x:
+            hipposysedit:path: website:newsPostImageLarge2x
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /newsPostImage:
@@ -299,6 +343,22 @@ definitions:
             jcr:primaryType: hipposysedit:field
           /postImageSmall2x:
             hipposysedit:path: website:postImageSmall2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /authorPhoto:
+            hipposysedit:path: website:authorPhoto
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /authorPhoto2x:
+            hipposysedit:path: website:authorPhoto2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /authorPhotoLarge:
+            hipposysedit:path: website:authorPhotoLarge
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /authorPhotoLarge2x:
+            hipposysedit:path: website:authorPhotoLarge2x
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /thumbnail:

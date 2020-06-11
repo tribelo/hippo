@@ -9,6 +9,26 @@ import org.onehippo.cms7.essentials.dashboard.annotations.HippoEssentialsGenerat
 @Node(jcrType = "website:corporateWebsiteImageset")
 public class CorporateWebsiteImageset extends HippoGalleryImageSet {
 
+    @HippoEssentialsGenerated(internalName = "website:authorPhoto2x")
+    public HippoGalleryImageBean getAuthorPhoto2x() {
+        return getBean("website:authorPhoto2x", HippoGalleryImageBean.class);
+    }
+
+    @HippoEssentialsGenerated(internalName = "website:authorPhoto")
+    public HippoGalleryImageBean getAuthorPhoto() {
+        return getBean("website:authorPhoto", HippoGalleryImageBean.class);
+    }
+
+    @HippoEssentialsGenerated(internalName = "website:authorPhotoLarge2x")
+    public HippoGalleryImageBean getAuthorPhotoLarge2x() {
+        return getBean("website:authorPhotoLarge2x", HippoGalleryImageBean.class);
+    }
+
+    @HippoEssentialsGenerated(internalName = "website:authorPhotoLarge")
+    public HippoGalleryImageBean getAuthorPhotoLarge() {
+        return getBean("website:authorPhotoLarge", HippoGalleryImageBean.class);
+    }
+
     @HippoEssentialsGenerated(internalName = "website:blogIndexThumb2x")
     public HippoGalleryImageBean getBlogIndexThumb2x() {
         return getBean("website:blogIndexThumb2x", HippoGalleryImageBean.class);
@@ -47,6 +67,16 @@ public class CorporateWebsiteImageset extends HippoGalleryImageSet {
     @HippoEssentialsGenerated(internalName = "website:newsFeaturedPost2x")
     public HippoGalleryImageBean getNewsFeaturedPost2x() {
         return getBean("website:newsFeaturedPost2x", HippoGalleryImageBean.class);
+    }
+
+    @HippoEssentialsGenerated(internalName = "website:newsPostImageLarge")
+    public HippoGalleryImageBean getNewsPostImageLarge() {
+        return getBean("website:newsPostImageLarge", HippoGalleryImageBean.class);
+    }
+
+    @HippoEssentialsGenerated(internalName = "website:newsPostImageLarge2x")
+    public HippoGalleryImageBean getNewsPostImageLarge2x() {
+        return getBean("website:newsPostImageLarge2x", HippoGalleryImageBean.class);
     }
 
     @HippoEssentialsGenerated(internalName = "website:newsPostImage")

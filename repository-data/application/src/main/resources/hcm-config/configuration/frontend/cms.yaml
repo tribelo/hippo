@@ -104,6 +104,24 @@ definitions:
       optimize: quality
       upscaling: false
       width: 1392
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:newsPostImageLarge:
+      .meta:order-before: website:homeBlogThumbSmall
+      compression: 0.8
+      cropping: false
+      height: 992
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: false
+      width: 992
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:newsPostImageLarge2x:
+      .meta:order-before: website:homeBlogThumbSmall
+      compression: 0.6
+      cropping: false
+      height: 1984
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: false
+      width: 1984
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:newsPostImage:
       .meta:order-before: website:homeBlogThumbSmall
       compression: 0.8
@@ -242,6 +260,38 @@ definitions:
       optimize: quality
       upscaling: false
       width: 686
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:authorPhoto:
+      compression: 0.8
+      cropping: true
+      height: 50
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: true
+      width: 50
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:authorPhoto2x:
+      compression: 0.6
+      cropping: true
+      height: 100
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: true
+      width: 100
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:authorPhotoLarge:
+      compression: 0.8
+      cropping: true
+      height: 200
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: true
+      width: 200
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:authorPhotoLarge2x:
+      compression: 0.6
+      cropping: true
+      height: 400
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: true
+      width: 400
     /hippo:configuration/hippo:frontend/cms/cms-services/imageValidationService:
       extensions.allowed:
       - jpg
