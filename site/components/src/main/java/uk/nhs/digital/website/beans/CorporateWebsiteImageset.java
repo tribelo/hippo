@@ -9,6 +9,16 @@ import org.onehippo.cms7.essentials.dashboard.annotations.HippoEssentialsGenerat
 @Node(jcrType = "website:corporateWebsiteImageset")
 public class CorporateWebsiteImageset extends HippoGalleryImageSet {
 
+    @HippoEssentialsGenerated(internalName = "website:blogIndexThumb2x")
+    public HippoGalleryImageBean getBlogIndexThumb2x() {
+        return getBean("website:blogIndexThumb2x", HippoGalleryImageBean.class);
+    }
+
+    @HippoEssentialsGenerated(internalName = "website:blogIndexThumb")
+    public HippoGalleryImageBean getBlogIndexThumb() {
+        return getBean("website:blogIndexThumb", HippoGalleryImageBean.class);
+    }
+
     @HippoEssentialsGenerated(internalName = "website:homeBlogThumb2x")
     public HippoGalleryImageBean getHomeBlogThumb2x() {
         return getBean("website:homeBlogThumb2x", HippoGalleryImageBean.class);

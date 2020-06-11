@@ -58,6 +58,18 @@ definitions:
             jcr:primaryType: frontend:plugin
             plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
             wicket.id: ${cluster.id}.field
+          /blogIndexThumb:
+            caption: Blog Index Thumb
+            field: blogIndexThumb
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
+          /blogIndexThumb2x:
+            caption: Blog Index Thumb@2x
+            field: blogIndexThumb2x
+            jcr:primaryType: frontend:plugin
+            plugin.class: org.hippoecm.frontend.editor.plugins.field.NodeFieldPlugin
+            wicket.id: ${cluster.id}.field
           /pageHeaderHeroModule:
             caption: Page Header - Hero Module
             field: pageHeaderHeroModule
@@ -188,6 +200,14 @@ definitions:
           /filename:
             hipposysedit:path: hippogallery:filename
             hipposysedit:type: String
+            jcr:primaryType: hipposysedit:field
+          /blogIndexThumb:
+            hipposysedit:path: website:blogIndexThumb
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /blogIndexThumb2x:
+            hipposysedit:path: website:blogIndexThumb2x
+            hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /homeBlogThumb:
             hipposysedit:path: website:homeBlogThumb

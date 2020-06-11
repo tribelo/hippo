@@ -47,9 +47,25 @@ definitions:
       upscaling: true
       width: 468
     /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:homeBlogThumb2x:
-      compression: 0.8
+      compression: 0.6
       cropping: true
       height: 368
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: true
+      width: 936
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:blogIndexThumb:
+      compression: 0.8
+      cropping: true
+      height: 240
+      jcr:primaryType: frontend:pluginconfig
+      optimize: quality
+      upscaling: true
+      width: 468
+    /hippo:configuration/hippo:frontend/cms/cms-services/galleryProcessorService/website:blogIndexThumb2x:
+      compression: 0.6
+      cropping: true
+      height: 480
       jcr:primaryType: frontend:pluginconfig
       optimize: quality
       upscaling: true
