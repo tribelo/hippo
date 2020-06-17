@@ -229,13 +229,21 @@ definitions:
         jcr:primaryType: editor:templateset
       /hipposysedit:nodetype:
         /hipposysedit:nodetype:
-          /description:
-            hipposysedit:path: hippogallery:description
-            hipposysedit:type: String
+          /authorPhoto:
+            hipposysedit:path: website:authorPhoto
+            hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
-          /filename:
-            hipposysedit:path: hippogallery:filename
-            hipposysedit:type: String
+          /authorPhoto2x:
+            hipposysedit:path: website:authorPhoto2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /authorPhotoLarge:
+            hipposysedit:path: website:authorPhotoLarge
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /authorPhotoLarge2x:
+            hipposysedit:path: website:authorPhotoLarge2x
+            hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /blogIndexThumb:
             hipposysedit:path: website:blogIndexThumb
@@ -244,6 +252,14 @@ definitions:
           /blogIndexThumb2x:
             hipposysedit:path: website:blogIndexThumb2x
             hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /description:
+            hipposysedit:path: hippogallery:description
+            hipposysedit:type: String
+            jcr:primaryType: hipposysedit:field
+          /filename:
+            hipposysedit:path: hippogallery:filename
+            hipposysedit:type: String
             jcr:primaryType: hipposysedit:field
           /homeBlogThumb:
             hipposysedit:path: website:homeBlogThumb
@@ -269,20 +285,20 @@ definitions:
             hipposysedit:path: website:newsFeaturedPost2x
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
-          /newsPostImageLarge:
-            hipposysedit:path: website:newsPostImageLarge
-            hipposysedit:type: hippogallery:image
-            jcr:primaryType: hipposysedit:field
-          /newsPostImageLarge2x:
-            hipposysedit:path: website:newsPostImageLarge2x
-            hipposysedit:type: hippogallery:image
-            jcr:primaryType: hipposysedit:field
           /newsPostImage:
             hipposysedit:path: website:newsPostImage
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /newsPostImage2x:
             hipposysedit:path: website:newsPostImage2x
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /newsPostImageLarge:
+            hipposysedit:path: website:newsPostImageLarge
+            hipposysedit:type: hippogallery:image
+            jcr:primaryType: hipposysedit:field
+          /newsPostImageLarge2x:
+            hipposysedit:path: website:newsPostImageLarge2x
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /newsThumbnail:
@@ -343,22 +359,6 @@ definitions:
             jcr:primaryType: hipposysedit:field
           /postImageSmall2x:
             hipposysedit:path: website:postImageSmall2x
-            hipposysedit:type: hippogallery:image
-            jcr:primaryType: hipposysedit:field
-          /authorPhoto:
-            hipposysedit:path: website:authorPhoto
-            hipposysedit:type: hippogallery:image
-            jcr:primaryType: hipposysedit:field
-          /authorPhoto2x:
-            hipposysedit:path: website:authorPhoto2x
-            hipposysedit:type: hippogallery:image
-            jcr:primaryType: hipposysedit:field
-          /authorPhotoLarge:
-            hipposysedit:path: website:authorPhotoLarge
-            hipposysedit:type: hippogallery:image
-            jcr:primaryType: hipposysedit:field
-          /authorPhotoLarge2x:
-            hipposysedit:path: website:authorPhotoLarge2x
             hipposysedit:type: hippogallery:image
             jcr:primaryType: hipposysedit:field
           /thumbnail:
