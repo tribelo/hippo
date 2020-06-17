@@ -1,0 +1,33 @@
+---
+/content/gallery/publicationsystem/luisa-brimble-fdprfktdyb0-unsplash.jpg:
+  .meta:order-before: joanna-nix-walkup-ie5vxut6ceq-unsplash.jpg
+  /luisa-brimble-fdprfktdyb0-unsplash.jpg:
+    /hippogallery:original:
+      hippogallery:height: 1280
+      hippogallery:width: 1920
+      jcr:data:
+        resource: /content/gallery/publicationsystem/luisa-brimble-fdprfktdyb0-unsplash.jpg/luisa-brimble-FDPRFKTdyb0-unsplash_original.jpg
+        type: binary
+      jcr:lastModified: 2020-06-17T09:31:05.748Z
+      jcr:mimeType: image/jpeg
+      jcr:primaryType: hippogallery:image
+    /hippogallery:thumbnail:
+      hippo:filename: luisa-brimble-FDPRFKTdyb0-unsplash.jpg
+      hippogallery:height: 40
+      hippogallery:width: 60
+      jcr:data:
+        resource: /content/gallery/publicationsystem/luisa-brimble-fdprfktdyb0-unsplash.jpg/luisa-brimble-FDPRFKTdyb0-unsplash_thumbnail.jpg
+        type: binary
+      jcr:lastModified: 2020-06-17T09:31:05.748Z
+      jcr:mimeType: image/jpeg
+      jcr:primaryType: hippogallery:image
+    hippo:availability:
+    - live
+    - preview
+    hippogallery:filename: luisa-brimble-FDPRFKTdyb0-unsplash.jpg
+    jcr:primaryType: hippogallery:imageset
+  hippo:name: luisa-brimble-FDPRFKTdyb0-unsplash.jpg
+  jcr:mixinTypes:
+  - hippo:named
+  - mix:referenceable
+  jcr:primaryType: hippo:handle
