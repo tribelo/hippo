@@ -12,6 +12,7 @@ import org.commonmark.renderer.html.HtmlRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.nhs.digital.apispecs.commonmark.config.CodeAttributeProviderConfig;
+import uk.nhs.digital.apispecs.commonmark.config.TableExtensionBuilder;
 import uk.nhs.digital.apispecs.model.ApiSpecificationDocument;
 import uk.nhs.digital.apispecs.model.OpenApiSpecificationStatus;
 
@@ -109,16 +110,13 @@ public class ApiSpecificationDocumentPublicationService {
         try {
             LOGGER.info("Publishing API Specification: {}", apiSpecificationDocument);
 
-            final String specHtml = getHtmlForSpec(apiSpecificationDocument);
+            final String rawSpecHtml = getHtmlForSpec(apiSpecificationDocument);
 
-            CodeAttributeProviderConfig config = new CodeAttributeProviderConfig();
-            Parser parser = Parser.builder().build();
-            HtmlRenderer renderer = config.getHtmlRenderer();
+            final String codeStyleSpecHtml =  modifyInlineCodeStyle(rawSpecHtml);
 
-            Node document = parser.parse(specHtml);
-            final String newSpecHtml = renderer.render(document);
+            final String specHtml = renderTables(codeStyleSpecHtml);
 
-            apiSpecificationDocument.setHtml(newSpecHtml);
+            apiSpecificationDocument.setHtml(specHtml);
 
             apiSpecificationDocument.saveAndPublish();
 
@@ -147,6 +145,24 @@ public class ApiSpecificationDocumentPublicationService {
 
     private String getHtmlForSpec(final ApiSpecificationDocument apiSpecificationDocument) {
         return apiSpecificationHtmlProvider.getHtmlForSpec(apiSpecificationDocument);
+    }
+
+    private String modifyInlineCodeStyle(String specHtml) {
+
+        Parser parser = Parser.builder().build();
+        CodeAttributeProviderConfig config = new CodeAttributeProviderConfig();
+        HtmlRenderer renderer = config.getHtmlRenderer();
+
+        Node document = parser.parse(specHtml);
+        return renderer.render(document);
+    }
+
+    private String renderTables(String specHtml) {
+
+        TableExtensionBuilder builder = new  TableExtensionBuilder();
+        Node document = builder.getExtendedParser().parse(specHtml);
+
+        return builder.getExtendedHtmlRenderer().render(document);
     }
 
     enum PublicationResult {
