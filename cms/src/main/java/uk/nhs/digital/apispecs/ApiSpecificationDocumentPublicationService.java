@@ -6,8 +6,12 @@ import static uk.nhs.digital.apispecs.ApiSpecificationDocumentPublicationService
 import static uk.nhs.digital.apispecs.ApiSpecificationDocumentPublicationService.PublicationResult.PASS;
 
 import com.google.common.collect.Maps;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.nhs.digital.apispecs.commonmark.config.CodeAttributeProviderConfig;
 import uk.nhs.digital.apispecs.model.ApiSpecificationDocument;
 import uk.nhs.digital.apispecs.model.OpenApiSpecificationStatus;
 
@@ -107,7 +111,14 @@ public class ApiSpecificationDocumentPublicationService {
 
             final String specHtml = getHtmlForSpec(apiSpecificationDocument);
 
-            apiSpecificationDocument.setHtml(specHtml);
+            CodeAttributeProviderConfig config = new CodeAttributeProviderConfig();
+            Parser parser = Parser.builder().build();
+            HtmlRenderer renderer = config.getHtmlRenderer();
+
+            Node document = parser.parse(specHtml);
+            final String newSpecHtml = renderer.render(document);
+
+            apiSpecificationDocument.setHtml(newSpecHtml);
 
             apiSpecificationDocument.saveAndPublish();
 
