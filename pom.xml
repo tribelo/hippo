@@ -123,7 +123,7 @@
         <com.fasterxml.jackson.version>2.10.3</com.fasterxml.jackson.version>
 
         <hippo-addon-inference-engine.version>3.0.1</hippo-addon-inference-engine.version>
-        <commonmark.tables.extension.version>0.15.0</commonmark.tables.extension.version>
+        <commonmark.version>0.15.0</commonmark.version>
     </properties>
 
     <repositories>
@@ -583,8 +583,14 @@
 
             <dependency>
                 <groupId>com.atlassian.commonmark</groupId>
+                <artifactId>commonmark</artifactId>
+                <version>${commonmark.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.atlassian.commonmark</groupId>
                 <artifactId>commonmark-ext-gfm-tables</artifactId>
-                <version>${commonmark.tables.extension.version}</version>
+                <version>${commonmark.version}</version>
             </dependency>
 
         </dependencies>
