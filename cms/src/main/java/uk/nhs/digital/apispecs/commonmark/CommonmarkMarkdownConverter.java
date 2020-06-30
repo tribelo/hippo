@@ -16,6 +16,7 @@ public class CommonmarkMarkdownConverter {
     private final Parser parser = Parser.builder().extensions(extensions).build();
     private final HtmlRenderer renderer = HtmlRenderer.builder()
         .attributeProviderFactory(context -> new CodeAttributeProvider())
+        .attributeProviderFactory(context -> new TableSortOffAttributeProvider())
         .extensions(extensions)
         .build();
 
