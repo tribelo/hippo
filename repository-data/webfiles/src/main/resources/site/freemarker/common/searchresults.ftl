@@ -9,9 +9,6 @@
 
 <@metaTags></@metaTags>
 
-
-${isContentSearch?string("yes", "no")}
-
 <#if isContentSearch?? && isContentSearch>
     <@contentSearchResults queryResponse />
 <#else>
