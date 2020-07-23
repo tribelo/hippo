@@ -10,7 +10,7 @@
 <@metaTags></@metaTags>
 
 <#if isContentSearch?? && isContentSearch>
-    <@contentSearchResults queryResponse />
+    <@contentSearch queryResponse />
 <#else>
     <div data-uipath="ps.search-results" data-totalresults="${(pageable.total)!0}">
         <#if pageable?? && pageable.total gt 0>
