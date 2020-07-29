@@ -7,7 +7,8 @@
     <#local linkText>${downloadDataFileHeader} ${section.title}</#local>
     <#local getData="uk.nhs.digital.freemarker.highcharts.RemoteChartDataFromUrl"?new() />
     <#local chartData =  getData(section.url) />
-    <#if chartData??>
+
+    <div id="chart-${section.uniqueId}-block">
         <figure data-chart="highchart">
             <div id="chart-${section.uniqueId}"
                  style="width:100%; height:${size}px;"></div>
@@ -24,7 +25,12 @@
                            );">${linkText}</a>
             </span>
         </figure>
-        <script type="text/javascript" data-chartsource="highchart" data-charttype="chart" data-sectionid="${section.uniqueId}">
+    </div>
+    <script type="text/javascript" data-chartsource="highchart" data-charttype="chart" data-sectionid="${section.uniqueId}">
+        <#if chartData??>
+        var results = Papa.parse(atob("${chartData.data}"));
+        if(!results.errors.length) {
+        </#if>
             window.highchartData${section.uniqueId?remove_beginning("-")} = {
                 chart: {
                     type: '${section.type?lower_case}',
@@ -56,12 +62,31 @@
                     name: '${item.name}'
                 }<#if item?is_last><#else>, </#if></#list>],
                 data: {
+                    <#if chartData??>
                     csv: atob("${chartData.data}"),
+                    <#else>
+                    enablePolling: false,
+                    csvURL: "${section.url}",
+                    </#if>
                     firstRowAsNames: true
                 }
             };
-        </script>
+        <#if chartData??>
+        } else {
+            document.getElementById('chart-${section.uniqueId}-block').innerHTML = "<p><strong>The dynamic chart is unavailable at this time. Please try again soon.</strong></p>"
+        }
+        </#if>
+    </script>
+
+    <br/>
+    <#if chartData??>
+        back
+        <br>
+        ${chartData.data}
+        <br>
+        ${section.url}
     <#else>
-        <p>The dynamic chart is unavailable at this time. Please try again soon.</p>
+        front
     </#if>
+    <br/>
 </#macro>
