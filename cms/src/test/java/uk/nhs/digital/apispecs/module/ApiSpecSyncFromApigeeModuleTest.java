@@ -34,7 +34,7 @@ public class ApiSpecSyncFromApigeeModuleTest {
 
     public static final String JOB_NAME = "apiSpecSyncFromApigee";
     public static final String JOB_GROUP_NAME = "devzone";
-    private static final String TRIGGER_NAME = "devzone.apiSpecSyncFromApigee.cronTrigger";
+    private static final String TRIGGER_NAME = "cronTrigger";
 
     @Mock private RepositoryScheduler scheduler;
 

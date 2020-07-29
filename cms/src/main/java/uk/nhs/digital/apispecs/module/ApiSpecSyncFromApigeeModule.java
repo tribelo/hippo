@@ -5,6 +5,7 @@ import static uk.nhs.digital.apispecs.module.ApiSpecSyncFromApigeeModule.ConfigP
 
 import org.onehippo.cms7.services.HippoServiceRegistry;
 import org.onehippo.repository.modules.AbstractReconfigurableDaemonModule;
+import org.onehippo.repository.modules.RequiresService;
 import org.onehippo.repository.scheduling.RepositoryJobCronTrigger;
 import org.onehippo.repository.scheduling.RepositoryJobInfo;
 import org.onehippo.repository.scheduling.RepositoryScheduler;
@@ -19,6 +20,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+@RequiresService(types = { RepositoryScheduler.class } )
 public class ApiSpecSyncFromApigeeModule extends AbstractReconfigurableDaemonModule {
 
     private static final Logger log = LoggerFactory.getLogger(ApiSpecSyncFromApigeeModule.class);
@@ -27,7 +29,7 @@ public class ApiSpecSyncFromApigeeModule extends AbstractReconfigurableDaemonMod
 
     private static final String JOB_GROUP = "devzone";
     private static final String JOB_NAME = "apiSpecSyncFromApigee";
-    private static final String JOB_TRIGGER_NAME = String.format("%s.%s.%s", JOB_GROUP, JOB_NAME, "cronTrigger");
+    private static final String JOB_TRIGGER_NAME = "cronTrigger";
 
     @Override protected void doConfigure(final Node moduleConfigNode) {
 
@@ -39,7 +41,7 @@ public class ApiSpecSyncFromApigeeModule extends AbstractReconfigurableDaemonMod
         synchronized (configurationLock) {
 
             try {
-                log.info("Configuring job {}:{} for synchronising API Specifications from Apigee.", JOB_GROUP, JOB_NAME); // the only one called on the config node change
+                log.info("Configuring job {}/{} for synchronising API Specifications from Apigee.", JOB_GROUP, JOB_NAME); // the only one called on the config node change
 
                 deactivatePreviousJobInstanceIfExists();
 
@@ -48,11 +50,11 @@ public class ApiSpecSyncFromApigeeModule extends AbstractReconfigurableDaemonMod
                     scheduleNewJob(moduleConfigNode);
 
                 } else {
-                    log.warn("Job {}:{} is not configured to be enabled, therefore it will not be activated.", JOB_GROUP, JOB_NAME);
+                    log.warn("Job {}/{} is not configured to be enabled, therefore it will not be activated.", JOB_GROUP, JOB_NAME);
                 }
 
             } catch (final Exception e) {
-                throw new RuntimeException(String.format("Failed to configure job %s:%s", JOB_GROUP, JOB_NAME), e);
+                throw new RuntimeException(String.format("Failed to configure job %s/%s", JOB_GROUP, JOB_NAME), e);
             }
         }
     }
@@ -67,7 +69,7 @@ public class ApiSpecSyncFromApigeeModule extends AbstractReconfigurableDaemonMod
             deactivatePreviousJobInstanceIfExists();
 
         } catch (final Exception e) {
-            throw new RuntimeException(String.format("Failed to cleanly shut down job %s:%s", JOB_GROUP, JOB_NAME), e);
+            throw new RuntimeException(String.format("Failed to cleanly shut down job %s/%s", JOB_GROUP, JOB_NAME), e);
         }
     }
 
@@ -81,7 +83,7 @@ public class ApiSpecSyncFromApigeeModule extends AbstractReconfigurableDaemonMod
 
         scheduler().scheduleJob(jobInfo, trigger);
 
-        log.info("Job {}:{} has been scheduled with cron expression: {}", JOB_GROUP, JOB_NAME, cronExpression);
+        log.info("Job {}/{} has been scheduled with cron expression: {}", JOB_GROUP, JOB_NAME, cronExpression);
     }
 
     private void deactivatePreviousJobInstanceIfExists() throws RepositoryException {
@@ -90,7 +92,7 @@ public class ApiSpecSyncFromApigeeModule extends AbstractReconfigurableDaemonMod
 
             scheduler().deleteJob(JOB_NAME, JOB_GROUP);
 
-            log.info("Job {}:{} has been deactivated.", JOB_GROUP, JOB_NAME);
+            log.info("Job {}/{} has been deactivated.", JOB_GROUP, JOB_NAME);
         }
     }
 
