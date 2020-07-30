@@ -6,13 +6,14 @@
     <@fmt.message key="headers.download-chart-data" var="downloadDataFileHeader" />
     <#local linkText>${downloadDataFileHeader} ${section.title}</#local>
     <#local getData="uk.nhs.digital.freemarker.highcharts.RemoteChartDataFromUrl"?new() />
-    <#local chartData =  getData(section.url) />
+    <#local chartData =  (getData(section.url))! />
 
     <div id="chart-${section.uniqueId}-block">
         <figure data-chart="highchart">
             <div id="chart-${section.uniqueId}"
                  style="width:100%; height:${size}px;"></div>
             <span class="attachment">
+                <#if chartData??>
                 <a data-uipath="ps.publication.chart-section.data-file"
                    title="${linkText}"
                    download="${slugify(section.title)}.csv"
@@ -23,6 +24,7 @@
                    onKeyUp="logGoogleAnalyticsEvent(
                            'Download chart data','Publication','${slugify(section.title)}'
                            );">${linkText}</a>
+                </#if>
             </span>
         </figure>
     </div>
@@ -77,16 +79,4 @@
         }
         </#if>
     </script>
-
-    <br/>
-    <#if chartData??>
-        back
-        <br>
-        ${chartData.data}
-        <br>
-        ${section.url}
-    <#else>
-        front
-    </#if>
-    <br/>
 </#macro>
