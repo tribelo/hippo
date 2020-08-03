@@ -13,7 +13,7 @@
             <div id="chart-${section.uniqueId}"
                  style="width:100%; height:${size}px;"></div>
             <span class="attachment">
-                <#if chartData??>
+                <#if (chartData.data)??>
                 <a data-uipath="ps.publication.chart-section.data-file"
                    title="${linkText}"
                    download="${slugify(section.title)}.csv"
@@ -29,8 +29,9 @@
         </figure>
     </div>
     <script type="text/javascript" data-chartsource="highchart" data-charttype="chart" data-sectionid="${section.uniqueId}">
-        <#if chartData??>
-        var results = Papa.parse(atob("${chartData.data}"));
+        <#if (chartData.data)??>
+        var chartData = "${chartData.data}";
+        var results = Papa.parse(atob(chartData));
         if(!results.errors.length) {
         </#if>
             window.highchartData${section.uniqueId?remove_beginning("-")} = {
@@ -64,8 +65,8 @@
                     name: '${item.name}'
                 }<#if item?is_last><#else>, </#if></#list>],
                 data: {
-                    <#if chartData??>
-                    csv: atob("${chartData.data}"),
+                    <#if (chartData.data)??>
+                    csv: atob(chartData),
                     <#else>
                     enablePolling: false,
                     csvURL: "${section.url}",
@@ -73,7 +74,7 @@
                     firstRowAsNames: true
                 }
             };
-        <#if chartData??>
+        <#if (chartData.data)??>
         } else {
             document.getElementById('chart-${section.uniqueId}-block').innerHTML = "<p><strong>The dynamic chart is unavailable at this time. Please try again soon.</strong></p>"
         }
