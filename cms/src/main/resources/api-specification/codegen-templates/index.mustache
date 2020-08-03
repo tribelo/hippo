@@ -43,7 +43,7 @@
 
     <!-- API Title: {{{appName}}} -->
 
-    <div class="article-section">
+    <div id="api-description" class="article-section">
         {{{appDescription}}}
     </div>
 
@@ -70,7 +70,7 @@
 
                                             {{#hasPathParams}}
                                                 <div class="methodsubtabletitle">Path parameters</div>
-                                                <table id="methodsubtable">
+                                                <table data-disablesort="true">
                                                     <tr>
                                                         <th width="150px">Name</th>
                                                         <th>Description</th>
@@ -83,7 +83,7 @@
 
                                             {{#hasHeaderParams}}
                                                 <div class="methodsubtabletitle">Headers</div>
-                                                <table id="methodsubtable">
+                                                <table data-disablesort="true">
                                                     <tr>
                                                         <th width="150px">Name</th>
                                                         <th>Description</th>
@@ -96,7 +96,7 @@
 
                                             {{#hasBodyParam}}
                                                 <div class="methodsubtabletitle">Body</div>
-                                                <table id="methodsubtable">
+                                                <table data-disablesort="true">
                                                     <tr>
                                                         <th width="150px">Name</th>
                                                         <th>Description</th>
@@ -109,7 +109,7 @@
 
                                             {{#hasFormParams}}
                                                 <div class="methodsubtabletitle">Form parameters</div>
-                                                <table id="methodsubtable">
+                                                <table data-disablesort="true">
                                                     <tr>
                                                         <th width="150px">Name</th>
                                                         <th>Description</th>
@@ -122,7 +122,7 @@
 
                                             {{#hasQueryParams}}
                                                 <div class="methodsubtabletitle">Query parameters</div>
-                                                <table id="methodsubtable">
+                                                <table data-disablesort="true">
                                                     <tr>
                                                         <th width="150px">Name</th>
                                                         <th>Description</th>
@@ -172,7 +172,7 @@
                                                     {{/schema}}
                                                     {{#hasHeaders}}
                                                         <div class="tab-pane" id="responses-{{nickname}}-{{code}}-headers">
-                                                            <table>
+                                                            <table data-disablesort="true">
                                                                 <tr>
                                                                     <th width="150px">Name</th>
                                                                     <th width="100px">Type</th>

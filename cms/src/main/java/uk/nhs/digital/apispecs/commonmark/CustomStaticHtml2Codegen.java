@@ -66,7 +66,7 @@ public class CustomStaticHtml2Codegen extends StaticHtml2Codegen {
         }
     }
 
-    private void prepareHtmlForEndpointsDescription(OpenAPI openApi) {
+    private void prepareHtmlForEndpointsDescription(final OpenAPI openApi) {
 
         final CommonmarkMarkdownConverter markdown = new CommonmarkMarkdownConverter();
 
@@ -88,7 +88,7 @@ public class CustomStaticHtml2Codegen extends StaticHtml2Codegen {
             });
     }
 
-    private void prepareHtmlForEndpointsParameters(OpenAPI openApi) {
+    private void prepareHtmlForEndpointsParameters(final OpenAPI openApi) {
 
         final CommonmarkMarkdownConverter markdown = new CommonmarkMarkdownConverter();
 

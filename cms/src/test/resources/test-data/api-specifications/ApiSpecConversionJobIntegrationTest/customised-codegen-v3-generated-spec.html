@@ -65,7 +65,7 @@
 
     <!-- API Title: Personal Demographics Service (FHIR) API -->
 
-    <div class="article-section">
+    <div id="api-description" class="article-section">
         <h2>Overview</h2>
 <p>Use this API to access the <a href="https://digital.nhs.uk/services/demographics">Personal Demographics Service (PDS)</a> - the national electronic database of NHS patient details such as name, address, date of birth and NHS Number.</p>
 <p>You can:</p>
@@ -320,7 +320,7 @@ It supports the following security patterns:</p>
                                                             <input id='responses-getPatient-200-schema-data' type='hidden' value=''></input>
                                                         </div>
                                                         <div class="tab-pane" id="responses-getPatient-200-headers">
-                                                            <table>
+                                                            <table data-disablesort="true">
                                                                 <tr>
                                                                     <th width="150px">Name</th>
                                                                     <th width="100px">Type</th>
@@ -536,29 +536,23 @@ You can request a single, exact match using <code class="codeinline">_exact-matc
 
 
                                                 <div class="methodsubtabletitle">Headers</div>
-                                                <table id="methodsubtable">
+                                                <table data-disablesort="true">
                                                     <tr>
                                                         <th width="150px">Name</th>
                                                         <th>Description</th>
                                                     </tr>
                                                         <tr><td style="width:150px;">NHSD-Session-URID</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_nHSDSessionURID">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                <p>A User Role ID (URID), also known as a User Role Profile ID (URPID), specifies the role the user is acting in.</p>
+                                                                            <div><p>A User Role ID (URID), also known as a User Role Profile ID (URPID), specifies the role the user is acting in.</p>
 <p>A URID belongs to a user (they are not generic) and a user may have more than one.</p>
 <p>Find out more about <a href="https://digital.nhs.uk/developer/user-restricted-restful-apis#user-completes-authentication-and-authorisation">User role ID</a></p>
 <p>Note: This parameter is required unless interacting with the Sandbox.</p>
-
-                                                                            </div>
+</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -566,23 +560,15 @@ You can request a single, exact match using <code class="codeinline">_exact-matc
                                                         </tr>
                                                         <tr><td style="width:150px;">Authorization</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_authorization">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
-                                                                            <span class="format">
-                                                                                (^Bearer\ [[:ascii:]]+$)
-                                                                            </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
+                                                                            <span class="codeinline">(^Bearer\ [[:ascii:]]+$)</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                <p>An OAuthV2 access token presented in Bearer format.</p>
+                                                                            <div><p>An OAuthV2 access token presented in Bearer format.</p>
 <p>Note: This parameter is required unless interacting with the Sandbox.</p>
-
-                                                                            </div>
+</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -593,25 +579,19 @@ You can request a single, exact match using <code class="codeinline">_exact-matc
 
 
                                                 <div class="methodsubtabletitle">Query parameters</div>
-                                                <table id="methodsubtable">
+                                                <table data-disablesort="true">
                                                     <tr>
                                                         <th width="150px">Name</th>
                                                         <th>Description</th>
                                                     </tr>
                                                         <tr><td style="width:150px;">_exact-match</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_exactMatch">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            Boolean
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">Boolean</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                The search only returns results where the `score` field is 1.0.
-                                                                            </div>
+                                                                            <div>The search only returns results where the `score` field is 1.0.</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -619,18 +599,12 @@ You can request a single, exact match using <code class="codeinline">_exact-matc
                                                         </tr>
                                                         <tr><td style="width:150px;">_history</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_history">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            Boolean
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">Boolean</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                The search looks for matches in historic information such as previous names and addresses.
-                                                                            </div>
+                                                                            <div>The search looks for matches in historic information such as previous names and addresses.</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -638,18 +612,12 @@ You can request a single, exact match using <code class="codeinline">_exact-matc
                                                         </tr>
                                                         <tr><td style="width:150px;">_fuzzy-match</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_fuzzyMatch">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            Boolean
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">Boolean</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                A fuzzy search is performed, including checks for homophones and transposed names.
-                                                                            </div>
+                                                                            <div>A fuzzy search is performed, including checks for homophones and transposed names.</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -657,21 +625,13 @@ You can request a single, exact match using <code class="codeinline">_exact-matc
                                                         </tr>
                                                         <tr><td style="width:150px;">_max-results</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_maxResults">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            Integer
-                                                                        </span>
-                                                                            <span class="format">
-                                                                                (int32)
-                                                                            </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">Integer</span>
+                                                                            <span class="codeinline">(int32)</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                The maximum number of results to return between 1 and 50. The default is 50.
-                                                                            </div>
+                                                                            <div>The maximum number of results to return between 1 and 50. The default is 50.</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -679,21 +639,15 @@ You can request a single, exact match using <code class="codeinline">_exact-matc
                                                         </tr>
                                                         <tr><td style="width:150px;">family</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_family">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                The patient's family name (surname).
+                                                                            <div>The patient's family name (surname).
 
 Must be [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding). For example a space must be represented by either `%20` or `+`.
-
-                                                                            </div>
+</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -701,21 +655,15 @@ Must be [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding). For examp
                                                         </tr>
                                                         <tr><td style="width:150px;">given</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_given">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                The patient's given name.
+                                                                            <div>The patient's given name.
 
 Must be [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding). For example a space must be represented by either `%20` or `+`.
-
-                                                                            </div>
+</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -723,18 +671,12 @@ Must be [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding). For examp
                                                         </tr>
                                                         <tr><td style="width:150px;">gender</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_gender">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                Gender with which the patient most strongly identifies.
-                                                                            </div>
+                                                                            <div>Gender with which the patient most strongly identifies.</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -742,18 +684,12 @@ Must be [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding). For examp
                                                         </tr>
                                                         <tr><td style="width:150px;">birthdate</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_birthdate">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            array[String]
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">array[String]</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                Date of birth in the format `<eq|ge|le>yyyy-mm-dd`. To specify a range, use `birthdate=geyyyy-mm-dd&birthdate=leyyyy-mm-dd`.
-                                                                            </div>
+                                                                            <div>Date of birth in the format `<eq|ge|le>yyyy-mm-dd`. To specify a range, use `birthdate=geyyyy-mm-dd&birthdate=leyyyy-mm-dd`.</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -761,21 +697,13 @@ Must be [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding). For examp
                                                         </tr>
                                                         <tr><td style="width:150px;">death-date</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_deathDate">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            date
-                                                                        </span>
-                                                                            <span class="format">
-                                                                                (date)
-                                                                            </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">date</span>
+                                                                            <span class="codeinline">(date)</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                Date of death in the format `<eq|ge|le>yyyy-mm-dd`. To specify a range, use `death-date=geyyyy-mm-dd&death-date=leyyyy-mm-dd`.
-                                                                            </div>
+                                                                            <div>Date of death in the format `<eq|ge|le>yyyy-mm-dd`. To specify a range, use `death-date=geyyyy-mm-dd&death-date=leyyyy-mm-dd`.</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -783,21 +711,15 @@ Must be [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding). For examp
                                                         </tr>
                                                         <tr><td style="width:150px;">address-postcode</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_addressPostcode">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                The postcode of any of the patient’s known addresses. White spaces in postcodes are not significant; that is, LS16AE and LS1 6AE will both match LS1 6AE.
+                                                                            <div>The postcode of any of the patient’s known addresses. White spaces in postcodes are not significant; that is, LS16AE and LS1 6AE will both match LS1 6AE.
 
 Must be [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding). For example a space must be represented by either `%20` or `+`.
-
-                                                                            </div>
+</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -805,18 +727,12 @@ Must be [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding). For examp
                                                         </tr>
                                                         <tr><td style="width:150px;">general-practitioner</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_searchPatient_generalPractitioner">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                The Organisation Data Service (ODS) code of the patient's registered GP practice.
-                                                                            </div>
+                                                                            <div>The Organisation Data Service (ODS) code of the patient's registered GP practice.</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1394,28 +1310,22 @@ The fourth value of gender, <code class="codeinline">other</code>, meaning indet
                                             <h2>Request</h2>
 
                                                 <div class="methodsubtabletitle">Path parameters</div>
-                                                <table id="methodsubtable">
+                                                <table data-disablesort="true">
                                                     <tr>
                                                         <th width="150px">Name</th>
                                                         <th>Description</th>
                                                     </tr>
                                                         <tr><td style="width:150px;">id*</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_updatePatientPartial_id">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                The patient's NHS Number. The primary identifier of a patient, unique within NHS England and Wales. Always 10 digits and must be a <a href="https://www.datadictionary.nhs.uk/data_dictionary/attributes/n/nhs/nhs_number_de.asp">valid NHS Number</a>.
-                                                                            </div>
+                                                                            <div>The patient's NHS Number. The primary identifier of a patient, unique within NHS England and Wales. Always 10 digits and must be a <a href="https://www.datadictionary.nhs.uk/data_dictionary/attributes/n/nhs/nhs_number_de.asp">valid NHS Number</a>.</div>
                                                                     </div>
-                                                                        <div class="inner required">
-                                                                            Required
+                                                                        <div class="httpparams__required">
+                                                                            * Required
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -1424,31 +1334,25 @@ The fourth value of gender, <code class="codeinline">other</code>, meaning indet
                                                 </table>
 
                                                 <div class="methodsubtabletitle">Headers</div>
-                                                <table id="methodsubtable">
+                                                <table data-disablesort="true">
                                                     <tr>
                                                         <th width="150px">Name</th>
                                                         <th>Description</th>
                                                     </tr>
                                                         <tr><td style="width:150px;">If-Match*</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_updatePatientPartial_ifMatch">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                Latest known version identifier enclosed in quotes preceded by `W/`.
+                                                                            <div>Latest known version identifier enclosed in quotes preceded by `W/`.
 
 Send the value of this resource's `ETag` response header (or `meta.versionId` property) as received.
-
-                                                                            </div>
+</div>
                                                                     </div>
-                                                                        <div class="inner required">
-                                                                            Required
+                                                                        <div class="httpparams__required">
+                                                                            * Required
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -1456,22 +1360,16 @@ Send the value of this resource's `ETag` response header (or `meta.versionId` pr
                                                         </tr>
                                                         <tr><td style="width:150px;">NHSD-Session-URID</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_updatePatientPartial_nHSDSessionURID">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                <p>A User Role ID (URID), also known as a User Role Profile ID (URPID), specifies the role the user is acting in.</p>
+                                                                            <div><p>A User Role ID (URID), also known as a User Role Profile ID (URPID), specifies the role the user is acting in.</p>
 <p>A URID belongs to a user (they are not generic) and a user may have more than one.</p>
 <p>Find out more about <a href="https://digital.nhs.uk/developer/user-restricted-restful-apis#user-completes-authentication-and-authorisation">User role ID</a></p>
 <p>Note: This parameter is required unless interacting with the Sandbox.</p>
-
-                                                                            </div>
+</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1479,23 +1377,15 @@ Send the value of this resource's `ETag` response header (or `meta.versionId` pr
                                                         </tr>
                                                         <tr><td style="width:150px;">Authorization</td>
                                                         <td>
-                                                        
-                                                        
                                                             <div id="d2e199_updatePatientPartial_authorization">
-                                                                <div class="json-schema-view">
-                                                                    <div class="primitive">
-                                                                        <span class="type">
-                                                                            String
-                                                                        </span>
-                                                                            <span class="format">
-                                                                                (^Bearer\ [[:ascii:]]+$)
-                                                                            </span>
+                                                                <div class="httpparams">
+                                                                    <div>
+                                                                        <span class="httpparams__datatype">String</span>
+                                                                            <span class="codeinline">(^Bearer\ [[:ascii:]]+$)</span>
                                                         
-                                                                            <div class="inner description">
-                                                                                <p>An OAuthV2 access token presented in Bearer format.</p>
+                                                                            <div><p>An OAuthV2 access token presented in Bearer format.</p>
 <p>Note: This parameter is required unless interacting with the Sandbox.</p>
-
-                                                                            </div>
+</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1504,7 +1394,7 @@ Send the value of this resource's `ETag` response header (or `meta.versionId` pr
                                                 </table>
 
                                                 <div class="methodsubtabletitle">Body</div>
-                                                <table id="methodsubtable">
+                                                <table data-disablesort="true">
                                                     <tr>
                                                         <th width="150px">Name</th>
                                                         <th>Description</th>
@@ -1794,7 +1684,7 @@ See the polling endpoint for more details.
 
                                                 <div class="tab-content" style='margin-bottom: 10px;'>
                                                         <div class="tab-pane" id="responses-updatePatientPartial-202-headers">
-                                                            <table>
+                                                            <table data-disablesort="true">
                                                                 <tr>
                                                                     <th width="150px">Name</th>
                                                                     <th width="100px">Type</th>
@@ -1937,7 +1827,7 @@ Retrieval of the outcome will not occur any faster by polling more frequently. T
                                                             <input id='responses-polling-200-schema-data' type='hidden' value=''></input>
                                                         </div>
                                                         <div class="tab-pane" id="responses-polling-200-headers">
-                                                            <table>
+                                                            <table data-disablesort="true">
                                                                 <tr>
                                                                     <th width="150px">Name</th>
                                                                     <th width="100px">Type</th>
@@ -2129,7 +2019,7 @@ Please raise these occurrences with our team (via https://digital.nhs.uk/develop
                                                             <input id='responses-getRelatedPeople-200-schema-data' type='hidden' value=''></input>
                                                         </div>
                                                         <div class="tab-pane" id="responses-getRelatedPeople-200-headers">
-                                                            <table>
+                                                            <table data-disablesort="true">
                                                                 <tr>
                                                                     <th width="150px">Name</th>
                                                                     <th width="100px">Type</th>
